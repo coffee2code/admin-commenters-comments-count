@@ -5,7 +5,7 @@ Version: 1.0
 Plugin URI: http://coffee2code.com/wp-plugins/admin-commenters-comments-count
 Author: Scott Reilly
 Author URI: http://coffee2code.com
-Description: Adds a linked count next to each commenter's name in various places in the admin with the number of comments they have made to the site.
+Description: Next to all appearances of each commenter's name in the admin, shows a count of their total number of comments, linked to a listing of those comments.
 
 By default, it is not possible to tell via a single glance whether a particular commenter has commented before,
 and if so, how many times.
@@ -31,7 +31,7 @@ Specifically, the linked comment count appears next to commenters in:
 Commenters are identified by the email address they provided when commenting.  If your site does not require that commenters
 submit their email address when commenting, then this plugin will be of little value to you.
 
-Compatible with WordPress 2.6+, 2.7+.
+Compatible with WordPress 2.6+, 2.7+, 2.8+.
 
 =>> Read the accompanying readme.txt file for more information.  Also, visit the plugin's homepage
 =>> for more information and the latest updates
