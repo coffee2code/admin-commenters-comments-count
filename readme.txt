@@ -1,10 +1,10 @@
 === Admin Commenters Comment Count ===
 Contributors: Scott Reilly
 Donate link: http://coffee2code.com
-Tags: commenters, comment count, comment author, comment, admin
+Tags: commenters, comment count, comment author, comment, admin, coffee2code
 Requires at least: 2.6
 Tested up to: 2.8
-Stable tag: trunk
+Stable tag: 1.0
 Version: 1.0
 
 Next to all appearances of each commenter's name in the admin, shows a count of their total number of comments, linked to a listing of those comments.
@@ -36,7 +36,7 @@ Commenters are identified by the email address they provided when commenting.  I
 
 == Installation ==
 
-1. Unzip `admin-commenters-comments-count-v1.0.zip` inside the `/wp-content/plugins/` directory for your site
+1. Unzip `admin-commenters-comments-count.zip` inside the `/wp-content/plugins/` directory for your site
 1. Activate the plugin through the 'Plugins' admin menu in WordPress
 
 == Screenshots ==
