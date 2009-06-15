@@ -1,6 +1,6 @@
 === Admin Commenters Comment Count ===
 Contributors: Scott Reilly
-Donate link: http://coffee2code.com
+Donate link: http://coffee2code.com/donate
 Tags: commenters, comment count, comment author, comment, admin, coffee2code
 Requires at least: 2.6
 Tested up to: 2.8
