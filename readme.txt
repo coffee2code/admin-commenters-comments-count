@@ -1,4 +1,4 @@
-=== Admin Commenters Comment Count ===
+=== Admin Commenters Comments Count ===
 Contributors: Scott Reilly
 Donate link: http://coffee2code.com/donate
 Tags: commenters, comment count, comment author, comment, admin, coffee2code
