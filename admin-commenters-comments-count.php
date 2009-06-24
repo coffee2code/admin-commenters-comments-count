@@ -5,7 +5,10 @@ Version: 1.0
 Plugin URI: http://coffee2code.com/wp-plugins/admin-commenters-comments-count
 Author: Scott Reilly
 Author URI: http://coffee2code.com
-Description: Next to all appearances of each commenter's name in the admin, shows a count of their total number of comments, linked to a listing of those comments.
+Description: Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
+
+Next to all appearances of each commenter's name in the admin, shows a count of their total number of comments,
+linked to a listing of those comments.
 
 By default, it is not possible to tell via a single glance whether a particular commenter has commented before,
 and if so, how many times.

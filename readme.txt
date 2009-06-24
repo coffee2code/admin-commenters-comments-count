@@ -1,13 +1,13 @@
 === Admin Commenters Comments Count ===
 Contributors: Scott Reilly
 Donate link: http://coffee2code.com/donate
-Tags: commenters, comment count, comment author, comment, admin, coffee2code
+Tags: commenters, comment count, comment author, comments, comment, admin, coffee2code
 Requires at least: 2.6
 Tested up to: 2.8
 Stable tag: 1.0
 Version: 1.0
 
-Next to all appearances of each commenter's name in the admin, shows a count of their total number of comments, linked to a listing of those comments.
+Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
 
 == Description ==
 
@@ -33,11 +33,29 @@ Specifically, the linked comment count appears next to commenters in:
 
 Commenters are identified by the email address they provided when commenting.  If your site does not require that commenters submit their email address when commenting, then this plugin will be of little value to you.
 
-
 == Installation ==
 
 1. Unzip `admin-commenters-comments-count.zip` inside the `/wp-content/plugins/` directory for your site
 1. Activate the plugin through the 'Plugins' admin menu in WordPress
+
+== Frequently Asked Questions ==
+
+= Why would I want to see a count of how many comments someone made? =
+
+There are many reason, some of which might include:
+
+* Quickly identifying a first-time commenter
+* Quickly identifying unfamiliar commenters that have in fact commented before
+* Quickly seeing how many total comments a particular commenter has made, and how many comments are pending
+* Easily going to a listing of all comments by a commenter, in order to see what and when they last commented, or what/when they first commented
+
+= How does the plugin know about all of the comments someone made to the site? =
+
+Commenters are identified by the email address they provided when making a comment.
+
+= Why does it report someone as having less comments than I know they've actually made? =
+
+Since commenters are identified by the email address they provided when making a comment, if they supply an alternate email address for a comment, the plugin treats that email account as a separate person.
 
 == Screenshots ==
 
@@ -46,4 +64,7 @@ Commenters are identified by the email address they provided when commenting.  I
 3. A screenshot of the 'Recent Comments' admin dashboard widget with the comment count appearing next to the commenter's name.
 4. A screenshot of the 'Discussion' panel on the 'Edit Post' admin page with the comment count appearing next to the commenter's name.
 
+== Changelog ==
 
+= 1.0 =
+* Initial release
