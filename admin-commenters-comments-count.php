@@ -1,7 +1,12 @@
 <?php
+/**
+ * @package Admin_Commenters_Comments_Count
+ * @author Scott Reilly
+ * @version 1.0.1
+ */
 /*
 Plugin Name: Admin Commenters Comments Count
-Version: 1.0
+Version: 1.0.1
 Plugin URI: http://coffee2code.com/wp-plugins/admin-commenters-comments-count
 Author: Scott Reilly
 Author URI: http://coffee2code.com
@@ -34,7 +39,7 @@ Specifically, the linked comment count appears next to commenters in:
 Commenters are identified by the email address they provided when commenting.  If your site does not require that commenters
 submit their email address when commenting, then this plugin will be of little value to you.
 
-Compatible with WordPress 2.6+, 2.7+, 2.8+.
+Compatible with WordPress 2.6+, 2.7+, 2.8+, 2.9+.
 
 =>> Read the accompanying readme.txt file for more information.  Also, visit the plugin's homepage
 =>> for more information and the latest updates
@@ -42,13 +47,13 @@ Compatible with WordPress 2.6+, 2.7+, 2.8+.
 Installation:
 
 1. Download the file http://www.coffee2code.com/wp-plugins/admin-commenters-comments-count.zip and unzip it into your 
-/wp-content/plugins/ directory.
+/wp-content/plugins/ directory (or install via the built-in WordPress plugin installer).
 2. Activate the plugin through the 'Plugins' admin menu in WordPress
 
 */
 
 /*
-Copyright (c) 2009 by Scott Reilly (aka coffee2code)
+Copyright (c) 2009-2010 by Scott Reilly (aka coffee2code)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation 
 files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, 
@@ -67,6 +72,9 @@ if ( !class_exists('AdminCommentersCommentsCount') ) :
 
 class AdminCommentersCommentsCount {
 
+	/**
+	 * Class constructor: initializes class variables and adds actions and filters.
+	 */
 	function AdminCommentersCommentsCount() {
 		if ( is_admin() ) {
 			add_action('admin_head', array(&$this, 'add_css'));
@@ -75,6 +83,9 @@ class AdminCommentersCommentsCount {
 		}
 	}
 
+	/**
+	 * Outputs CSS within style tags
+	 */
 	function add_css() {
 		echo <<<CSS
 		<style type="text/css">
@@ -89,7 +100,19 @@ class AdminCommentersCommentsCount {
 CSS;
 	}
 
-	function comment_author($author_name) {
+	/**
+	 * Returns the comment author link for the specified author along with the
+	 * markup indicating the number of times the comment author has commented
+	 * on the site.  The comment count links to a listing of all of that
+	 * person's comments.
+	 *
+	 * Commenters are identified by the email address they provided when
+	 * commenting.
+	 *
+	 * @param string $author_name Name of the comment author.
+	 * @return string Comment author link plus linked comment count markup.
+	 */
+	function comment_author( $author_name ) {
 		if ( !is_admin() )
 			return $author_name;
 		global $comment, $wpdb;
@@ -123,6 +146,10 @@ CSS;
 			</div>$author_name";
 	}
 
+	/**
+	 * Filter for WP's get_comment_author_link() that returns the value of
+	 * comment_author() when in the admin.
+	 */
 	function get_comment_author_link($author_link) {
 		if ( !is_admin() ) return $author_link;
 		return $this->comment_author(get_comment_author());
