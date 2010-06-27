@@ -2,18 +2,18 @@
 Contributors: coffee2code
 Donate link: http://coffee2code.com/donate
 Tags: commenters, comment count, comment author, comments, comment, admin, coffee2code
-Requires at least: 2.6
-Tested up to: 2.9.1
-Stable tag: 1.0.1
-Version: 1.0.1
+Requires at least: 2.8
+Tested up to: 3.0.1
+Stable tag: 1.1
+Version: 1.1
 
 Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
 
 == Description ==
 
-Next to all appearances of each commenter's name in the admin, shows a count of their total number of comments, linked to a listing of those comments.
+Next to all appearances of each commenter's name in the admin, this plugin shows a count of their total number of comments, linked to a listing of those comments.
 
-By default, it is not possible to tell via a single glance whether a particular commenter has commented before, and if so, how many times.
+By default in WordPress, it is not possible to tell via a single glance whether a particular commenter has commented before, and if so, how many times.
 
 This plugin adds a handy feature to the WordPress admin pages to allow you to:
 
@@ -27,11 +27,11 @@ This plugin adds a linked comment count next to every appearance of a commenter 
 Specifically, the linked comment count appears next to commenters in:
 
 * The "Edit Comments" listing of comments (including comment search results)
-* The "Edit Comments for 'Post Title'" listing of post-specific comments
+* The "Edit Comments for 'POST_TITLE'" listing of post-specific comments
 * The "Discussion" box of the "Edit Post" page for a post with comments
 * The "Recent Comments" admin dashboard widget
 
-Commenters are identified by the email address they provided when commenting.  If your site does not require that commenters submit their email address when commenting, then this plugin will be of little value to you.
+Commenters are identified by the email address they provided when commenting.  If your site does not require that commenters submit their email address when commenting, this plugin will use the commenter's name as the identifier, though since this is a publicly viewable piece of data it's possible that multiple people could be posting under the same "name", so this method has the potential to be not as accurate.
 
 == Installation ==
 
@@ -51,7 +51,7 @@ There are many reason, some of which might include:
 
 = How does the plugin know about all of the comments someone made to the site? =
 
-Commenters are identified by the email address they provided when making a comment.
+Commenters are identified by the email address they provided when making a comment. If commenters are allowed to omit providing an email address, then their name is used to identify them (though this is potentially less accurate).
 
 = Why does it report someone as having less comments than I know they've actually made? =
 
@@ -65,6 +65,19 @@ Since commenters are identified by the email address they provided when making a
 4. A screenshot of the 'Discussion' panel on the 'Edit Post' admin page with the comment count appearing next to the commenter's name.
 
 == Changelog ==
+
+= 1.1 =
+* If a commenter does not have an email provided, search for other comments based on the provided name
+* Treat class as a namespace rather than instantiating it as an object
+* Check for is_admin() before defining class rather than during constructor
+* Proper conditional string pluralization and localization support
+* Use esc_attr() instead of attribute_escape()
+* Fix dashboard display of commenter comment counts (prevent clipping of top of bubble, bubble background is now blue instead of gray)
+* No longer define background-position in CSS
+* Minor code reformatting (spacing)
+* Remove trailing whitespace in docs
+* Note compatibility with WP 3.0+
+* Drop compatibility with version of WP older than 2.8
 
 = 1.0.1 =
 * Add PHPDoc documentation
