@@ -7,48 +7,16 @@
 /*
 Plugin Name: Admin Commenters Comments Count
 Version: 1.1
-Plugin URI: http://coffee2code.com/wp-plugins/admin-commenters-comments-count
+Plugin URI: http://coffee2code.com/wp-plugins/admin-commenters-comments-count/
 Author: Scott Reilly
 Author URI: http://coffee2code.com
 Description: Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
 
-Next to all appearances of each commenter's name in the admin, shows a count of their total number of comments,
-linked to a listing of those comments.
-
-By default, it is not possible to tell via a single glance whether a particular commenter has commented before,
-and if so, how many times.
-
-This plugin adds a handy feature to the WordPress admin pages to allow you to:
-
-* Quickly identify a first-time commenter
-* Quickly identify unfamiliar commenters that have in fact commented before
-* Quickly see how many total comments a particular commenter has made, and how many comments are pending
-* Easily go to a listing of all comments by a commenter, in order to see what and when they last commented, or what/when they first commented
-
-This plugin adds a linked comment count next to every appearance of a commenter in the admin.  The link takes you to the admin
-page listing all comments for that particular commenter.  The count displays all approved comments attributed to that commenter.  If you hover
-over the comment count, the hover text indicates how many pending comments they also have, if any.
-
-Specifically, the linked comment count appears next to commenters in:
-
-* The "Edit Comments" listing of comments (including comment search results)
-* The "Edit Comments for 'Post Title'" listing of post-specific comments
-* The "Discussion" box of the "Edit Post" page for a post with comments
-* The "Recent Comments" admin dashboard widget
-
-Commenters are identified by the email address they provided when making a comment. If commenters are allowed to omit providing an email
-address, then their name is used to identify them (though this is potentially less accurate).
-
 Compatible with WordPress 2.8+, 2.9+, 3.0+.
 
-=>> Read the accompanying readme.txt file for more information.  Also, visit the plugin's homepage
-=>> for more information and the latest updates
-
-Installation:
-
-1. Download the file http://www.coffee2code.com/wp-plugins/admin-commenters-comments-count.zip and unzip it into your
-/wp-content/plugins/ directory (or install via the built-in WordPress plugin installer).
-2. Activate the plugin through the 'Plugins' admin menu in WordPress
+=>> Read the accompanying readme.txt file for instructions and documentation.
+=>> Also, visit the plugin's homepage for additional information and updates.
+=>> Or visit: http://wordpress.org/extend/plugins/admin-commenters-comments-count/
 
 */
 
@@ -155,9 +123,8 @@ CSS;
 	}
 } // end AdminCommentersCommentsCount
 
-endif; // end if !class_exists()
+AdminCommentersCommentsCount::init();
 
-if ( class_exists( 'AdminCommentersCommentsCount' ) )
-	AdminCommentersCommentsCount::init();
+endif; // end if !class_exists()
 
 ?>

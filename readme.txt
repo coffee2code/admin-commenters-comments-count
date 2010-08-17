@@ -9,6 +9,7 @@ Version: 1.1
 
 Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
 
+
 == Description ==
 
 Next to all appearances of each commenter's name in the admin, this plugin shows a count of their total number of comments, linked to a listing of those comments.
@@ -33,10 +34,12 @@ Specifically, the linked comment count appears next to commenters in:
 
 Commenters are identified by the email address they provided when commenting.  If your site does not require that commenters submit their email address when commenting, this plugin will use the commenter's name as the identifier, though since this is a publicly viewable piece of data it's possible that multiple people could be posting under the same "name", so this method has the potential to be not as accurate.
 
+
 == Installation ==
 
 1. Unzip `admin-commenters-comments-count.zip` inside the `/wp-content/plugins/` directory for your site (or install via the built-in WordPress plugin installer)
 1. Activate the plugin through the 'Plugins' admin menu in WordPress
+
 
 == Frequently Asked Questions ==
 
@@ -57,12 +60,14 @@ Commenters are identified by the email address they provided when making a comme
 
 Since commenters are identified by the email address they provided when making a comment, if they supply an alternate email address for a comment, the plugin treats that email account as a separate person.
 
+
 == Screenshots ==
 
 1. A screenshot of the 'Edit Comments' admin page with the comment count appearing next to the commenter's name.
 2. A screenshot of the 'Edit Comments on POST TITLE' admin page with the comment count appearing next to the commenter's name.
 3. A screenshot of the 'Recent Comments' admin dashboard widget with the comment count appearing next to the commenter's name.
 4. A screenshot of the 'Discussion' panel on the 'Edit Post' admin page with the comment count appearing next to the commenter's name.
+
 
 == Changelog ==
 
@@ -74,8 +79,11 @@ Since commenters are identified by the email address they provided when making a
 * Use esc_attr() instead of attribute_escape()
 * Fix dashboard display of commenter comment counts (prevent clipping of top of bubble, bubble background is now blue instead of gray)
 * No longer define background-position in CSS
+* Remove docs from top of plugin file (all that and more are in readme.txt)
 * Minor code reformatting (spacing)
+* Add package info to top of plugin file
 * Remove trailing whitespace in docs
+* Add Upgrade Notice section to readme.txt
 * Note compatibility with WP 3.0+
 * Drop compatibility with version of WP older than 2.8
 
@@ -86,3 +94,9 @@ Since commenters are identified by the email address they provided when making a
 
 = 1.0 =
 * Initial release
+
+
+== Upgrade Notice ==
+
+= 1.1 =
+Recommended update. Highlights: search for other comments by commenter name if no email is provided, fixed clipping of comment bubble on admin dashboard, miscellaneous tweaks, verified WP 3.0 compatibility.
