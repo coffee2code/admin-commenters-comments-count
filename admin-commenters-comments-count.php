@@ -2,11 +2,11 @@
 /**
  * @package Admin_Commenters_Comments_Count
  * @author Scott Reilly
- * @version 1.1
+ * @version 1.1.1
  */
 /*
 Plugin Name: Admin Commenters Comments Count
-Version: 1.1
+Version: 1.1.1
 Plugin URI: http://coffee2code.com/wp-plugins/admin-commenters-comments-count/
 Author: Scott Reilly
 Author URI: http://coffee2code.com
@@ -102,7 +102,7 @@ CSS;
 			$author_email = $author_url;
 			/* Translators: sorry, but I'm not supplying explicit translation strings for all possible other comment types.
 			   You can at least expect '%d trackback', '%d trackbacks', '%d pingback' and '%d pingbacks' */
-			$msg = sprintf( _n( '%d %s', '%d %ss', $comment_count ), $comment_count );
+			$msg = sprintf( _n( '%d %s', '%d %ss', $comment_count ), $comment_count, $type );
 		}
 		if ( $pending_count )
 			$msg .= '; ' . sprintf( __( '%s pending' ), $pending_count );

@@ -4,8 +4,8 @@ Donate link: http://coffee2code.com/donate
 Tags: commenters, comment count, comment author, comments, comment, admin, coffee2code
 Requires at least: 2.8
 Tested up to: 3.0.1
-Stable tag: 1.1
-Version: 1.1
+Stable tag: 1.1.1
+Version: 1.1.1
 
 Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
 
@@ -71,6 +71,9 @@ Since commenters are identified by the email address they provided when making a
 
 == Changelog ==
 
+= 1.1.1. =
+* Bug fix (missing argument for sprintf() replacement)
+
 = 1.1 =
 * If a commenter does not have an email provided, search for other comments based on the provided name
 * Treat class as a namespace rather than instantiating it as an object
@@ -97,6 +100,9 @@ Since commenters are identified by the email address they provided when making a
 
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+Minor bug fix.
 
 = 1.1 =
 Recommended update. Highlights: search for other comments by commenter name if no email is provided, fixed clipping of comment bubble on admin dashboard, miscellaneous tweaks, verified WP 3.0 compatibility.
