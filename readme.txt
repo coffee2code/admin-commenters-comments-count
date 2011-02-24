@@ -3,9 +3,9 @@ Contributors: coffee2code
 Donate link: http://coffee2code.com/donate
 Tags: commenters, comment count, comment author, comments, comment, admin, coffee2code
 Requires at least: 2.8
-Tested up to: 3.0.1
-Stable tag: 1.1.1
-Version: 1.1.1
+Tested up to: 3.1
+Stable tag: 1.1.2
+Version: 1.1.2
 
 Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
 
@@ -33,6 +33,8 @@ Specifically, the linked comment count appears next to commenters in:
 * The "Recent Comments" admin dashboard widget
 
 Commenters are identified by the email address they provided when commenting.  If your site does not require that commenters submit their email address when commenting, this plugin will use the commenter's name as the identifier, though since this is a publicly viewable piece of data it's possible that multiple people could be posting under the same "name", so this method has the potential to be not as accurate.
+
+Links: [Plugin Homepage]:(http://coffee2code.com/wp-plugins/admin-commenters-comments-count/) | [Author Homepage]:(http://coffee2code.com)
 
 
 == Installation ==
@@ -71,6 +73,12 @@ Since commenters are identified by the email address they provided when making a
 
 == Changelog ==
 
+= 1.1.2 =
+* Explicitly declare all class functions public static
+* Minor code reformatting (spacing) and doc tweaks
+* Note compatibility with WP 3.1+
+* Update copyright date (2011)
+
 = 1.1.1. =
 * Bug fix (missing argument for sprintf() replacement)
 
@@ -100,6 +108,9 @@ Since commenters are identified by the email address they provided when making a
 
 
 == Upgrade Notice ==
+
+= 1.1.2 =
+Trivial update: noted compatibility with WP 3.1+ and updated copyright date.
 
 = 1.1.1 =
 Minor bug fix.
