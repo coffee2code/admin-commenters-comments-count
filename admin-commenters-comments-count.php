@@ -2,21 +2,25 @@
 /**
  * @package Admin_Commenters_Comments_Count
  * @author Scott Reilly
- * @version 1.1.2
+ * @version 1.1.3
  */
 /*
 Plugin Name: Admin Commenters Comments Count
-Version: 1.1.2
+Version: 1.1.3
 Plugin URI: http://coffee2code.com/wp-plugins/admin-commenters-comments-count/
 Author: Scott Reilly
 Author URI: http://coffee2code.com
 Description: Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
 
-Compatible with WordPress 2.8+, 2.9+, 3.0+, 3.1+.
+Compatible with WordPress 2.8+, 2.9+, 3.0+, 3.1+, 3.2+.
 
 =>> Read the accompanying readme.txt file for instructions and documentation.
 =>> Also, visit the plugin's homepage for additional information and updates.
 =>> Or visit: http://wordpress.org/extend/plugins/admin-commenters-comments-count/
+
+TODO:
+	* Prefix class with 'c2c_'
+	* Update screenshots for WP3.2
 
 */
 
@@ -36,7 +40,7 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRA
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-if ( is_admin() && !class_exists( 'AdminCommentersCommentsCount' ) ) :
+if ( is_admin() && ! class_exists( 'AdminCommentersCommentsCount' ) ) :
 
 class AdminCommentersCommentsCount {
 
@@ -77,6 +81,7 @@ CSS;
 	public static function comment_author( $author_name ) {
 		global $comment, $wpdb;
 		$type = get_comment_type();
+
 		if ( 'comment' == $type ) {
 			$author_email = $comment->comment_author_email;
 			$author_name  = $comment->comment_author;
@@ -104,9 +109,12 @@ CSS;
 			   You can at least expect '%d trackback', '%d trackbacks', '%d pingback' and '%d pingbacks' */
 			$msg = sprintf( _n( '%d %s', '%d %ss', $comment_count ), $comment_count, $type );
 		}
+
 		if ( $pending_count )
 			$msg .= '; ' . sprintf( __( '%s pending' ), $pending_count );
-		$url = $comment_count+$pending_count > 0 ? 'edit-comments.php?s=' . esc_attr( $author_email ) : '#';
+
+		$url = $comment_count+$pending_count > 0 ? 'edit-comments.php?s=' . esc_attr( urlencode( $author_email ) ) : '#';
+
 		return "
 			<div class='post-com-count-wrapper' style='position:relative; display:inline;'><strong>
 			<a class='author-com-count post-com-count' href='$url' title='$msg' style=''><span class='comment-count'>$comment_count</span></a>
@@ -121,9 +129,9 @@ CSS;
 	 * @return string Modified author link
 	 */
 	public static function get_comment_author_link( $author_link ) {
-		if ( !is_admin() )
+		if ( ! is_admin() )
 			return $author_link;
-		return AdminCommentersCommentsCount::comment_author( get_comment_author() );
+		return self::comment_author( get_comment_author() );
 	}
 } // end AdminCommentersCommentsCount
 

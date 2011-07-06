@@ -3,9 +3,9 @@ Contributors: coffee2code
 Donate link: http://coffee2code.com/donate
 Tags: commenters, comment count, comment author, comments, comment, admin, coffee2code
 Requires at least: 2.8
-Tested up to: 3.1
-Stable tag: 1.1.2
-Version: 1.1.2
+Tested up to: 3.2
+Stable tag: 1.1.3
+Version: 1.1.3
 
 Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
 
@@ -34,7 +34,7 @@ Specifically, the linked comment count appears next to commenters in:
 
 Commenters are identified by the email address they provided when commenting.  If your site does not require that commenters submit their email address when commenting, this plugin will use the commenter's name as the identifier, though since this is a publicly viewable piece of data it's possible that multiple people could be posting under the same "name", so this method has the potential to be not as accurate.
 
-Links: [Plugin Homepage]:(http://coffee2code.com/wp-plugins/admin-commenters-comments-count/) | [Author Homepage]:(http://coffee2code.com)
+Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/admin-commenters-comments-count/) | [Author Homepage](http://coffee2code.com)
 
 
 == Installation ==
@@ -73,6 +73,13 @@ Since commenters are identified by the email address they provided when making a
 
 == Changelog ==
 
+= 1.1.3 =
+* Properly encode emails in links to commenter's comments listing (fixes bug where a '+' in email prevented being able to see their listing)
+* Invoke class function internally via self instead of using actual classname
+* Note compatibility through WP 3.2+
+* Minor code formatting changes (spacing)
+* Fix plugin homepage and author links in description in readme.txt
+
 = 1.1.2 =
 * Explicitly declare all class functions public static
 * Minor code reformatting (spacing) and doc tweaks
@@ -108,6 +115,9 @@ Since commenters are identified by the email address they provided when making a
 
 
 == Upgrade Notice ==
+
+= 1.1.3 =
+Minor bugfix update: properly encode emails in links to commenter's comments listing; noted compatibility through WP 3.2+
 
 = 1.1.2 =
 Trivial update: noted compatibility with WP 3.1+ and updated copyright date.
