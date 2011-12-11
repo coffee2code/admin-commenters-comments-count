@@ -3,9 +3,9 @@ Contributors: coffee2code
 Donate link: http://coffee2code.com/donate
 Tags: commenters, comment count, comment author, comments, comment, admin, coffee2code
 Requires at least: 2.8
-Tested up to: 3.2
-Stable tag: 1.1.3
-Version: 1.1.3
+Tested up to: 3.3
+Stable tag: 1.1.4
+Version: 1.1.4
 
 Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
 
@@ -34,7 +34,7 @@ Specifically, the linked comment count appears next to commenters in:
 
 Commenters are identified by the email address they provided when commenting.  If your site does not require that commenters submit their email address when commenting, this plugin will use the commenter's name as the identifier, though since this is a publicly viewable piece of data it's possible that multiple people could be posting under the same "name", so this method has the potential to be not as accurate.
 
-Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/admin-commenters-comments-count/) | [Author Homepage](http://coffee2code.com)
+Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/admin-commenters-comments-count/) | [Plugin Directory Page](http://wordpress.org/extend/plugins/admin-commenters-comments-count/) | [Author Homepage](http://coffee2code.com)
 
 
 == Installation ==
@@ -47,7 +47,7 @@ Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/admin-commenters-comm
 
 = Why would I want to see a count of how many comments someone made? =
 
-There are many reason, some of which might include:
+There are many reasons, some of which might include:
 
 * Quickly identifying a first-time commenter
 * Quickly identifying unfamiliar commenters that have in fact commented before
@@ -72,6 +72,17 @@ Since commenters are identified by the email address they provided when making a
 
 
 == Changelog ==
+
+= 1.1.4 =
+* Bugfix for notices when non-standard comment types are present (by explicitly supporting pingbacks and trackbacks, and ignoring non-standard comment types)
+* CSS tweak to prevent top of comment bubble from being clipped
+* Prefix class name with 'c2c_'
+* Add version() to return plugin version
+* Note compatibility through WP 3.3+
+* Fix typo in readme.txt
+* Update screenshot-3
+* Add link to plugin directory page to readme.txt
+* Update copyright date (2012)
 
 = 1.1.3 =
 * Properly encode emails in links to commenter's comments listing (fixes bug where a '+' in email prevented being able to see their listing)
@@ -116,8 +127,11 @@ Since commenters are identified by the email address they provided when making a
 
 == Upgrade Notice ==
 
+= 1.1.4 =
+Minor bugfix update: prevent PHP notices when non-standard comment types are present; noted compatibility through WP 3.3+.
+
 = 1.1.3 =
-Minor bugfix update: properly encode emails in links to commenter's comments listing; noted compatibility through WP 3.2+
+Minor bugfix update: properly encode emails in links to commenter's comments listing; noted compatibility through WP 3.2+.
 
 = 1.1.2 =
 Trivial update: noted compatibility with WP 3.1+ and updated copyright date.

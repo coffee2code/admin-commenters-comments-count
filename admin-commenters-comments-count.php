@@ -2,30 +2,25 @@
 /**
  * @package Admin_Commenters_Comments_Count
  * @author Scott Reilly
- * @version 1.1.3
+ * @version 1.1.4
  */
 /*
 Plugin Name: Admin Commenters Comments Count
-Version: 1.1.3
+Version: 1.1.4
 Plugin URI: http://coffee2code.com/wp-plugins/admin-commenters-comments-count/
 Author: Scott Reilly
 Author URI: http://coffee2code.com
 Description: Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
 
-Compatible with WordPress 2.8+, 2.9+, 3.0+, 3.1+, 3.2+.
+Compatible with WordPress 2.8+, 2.9+, 3.0+, 3.1+, 3.2+, 3.3+.
 
 =>> Read the accompanying readme.txt file for instructions and documentation.
 =>> Also, visit the plugin's homepage for additional information and updates.
 =>> Or visit: http://wordpress.org/extend/plugins/admin-commenters-comments-count/
-
-TODO:
-	* Prefix class with 'c2c_'
-	* Update screenshots for WP3.2
-
 */
 
 /*
-Copyright (c) 2009-2011 by Scott Reilly (aka coffee2code)
+Copyright (c) 2009-2012 by Scott Reilly (aka coffee2code)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
 files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
@@ -40,9 +35,18 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRA
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-if ( is_admin() && ! class_exists( 'AdminCommentersCommentsCount' ) ) :
+if ( is_admin() && ! class_exists( 'c2c_AdminCommentersCommentsCount' ) ) :
 
-class AdminCommentersCommentsCount {
+class c2c_AdminCommentersCommentsCount {
+
+	/**
+	 * Returns version of the plugin.
+	 *
+	 * @since 1.1.4
+	 */
+	public static function version() {
+		return '1.1.4';
+	}
 
 	/**
 	 * Class constructor: initializes class variables and adds actions and filters.
@@ -60,6 +64,7 @@ class AdminCommentersCommentsCount {
 		echo <<<CSS
 		<style type="text/css">
 		.author-com-count {float:right;text-align:center;margin-right:5px;margin-top:2px;height:1.3em;line-height:1.1em;}
+		#dashboard_recent_comments .author-com-count {margin-top:4px;}
 		.author-com-count:hover {background-position:22% -3px;}
 		</style>
 
@@ -96,7 +101,7 @@ CSS;
 			$comment_count = $wpdb->get_var( $wpdb->prepare( $query, $value, 1 ) );
 			$pending_count = $wpdb->get_var( $wpdb->prepare( $query, $value, 0 ) );
 			$msg = sprintf( _n( '%d comment', '%d comments', $comment_count ), $comment_count );
-		} else {
+		} elseif ( 'pingback' == $type || 'trackback' == $type ) {
 			$author_url = $comment->comment_author_url;
 			// Want to get the root domain and not use the exact pingback/trackback source link
 			$parsed_url = parse_url( $author_url );
@@ -108,6 +113,8 @@ CSS;
 			/* Translators: sorry, but I'm not supplying explicit translation strings for all possible other comment types.
 			   You can at least expect '%d trackback', '%d trackbacks', '%d pingback' and '%d pingbacks' */
 			$msg = sprintf( _n( '%d %s', '%d %ss', $comment_count ), $comment_count, $type );
+		} else {
+			return $author_name;
 		}
 
 		if ( $pending_count )
@@ -133,9 +140,9 @@ CSS;
 			return $author_link;
 		return self::comment_author( get_comment_author() );
 	}
-} // end AdminCommentersCommentsCount
+} // end c2c_AdminCommentersCommentsCount
 
-AdminCommentersCommentsCount::init();
+c2c_AdminCommentersCommentsCount::init();
 
 endif; // end if !class_exists()
 
