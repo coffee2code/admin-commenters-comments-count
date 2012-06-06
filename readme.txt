@@ -2,10 +2,12 @@
 Contributors: coffee2code
 Donate link: http://coffee2code.com/donate
 Tags: commenters, comment count, comment author, comments, comment, admin, coffee2code
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 2.8
-Tested up to: 3.3
-Stable tag: 1.1.4
-Version: 1.1.4
+Tested up to: 3.4
+Stable tag: 1.2
+Version: 1.2
 
 Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
 
@@ -73,6 +75,18 @@ Since commenters are identified by the email address they provided when making a
 
 == Changelog ==
 
+= 1.2 =
+* Add CSS rule to set text color to white to supersede CSS styling done by latest Akismet
+* Default to gray comment bubble
+* Show blue comment bubble for authors with pending comment (consistent with how WP does it for posts)
+* Add 'author-com-pending' class to link when author has pending comments
+* Show orange comment bubble on hover over comment bubble
+* Re-license as GPLv2 or later (from X11)
+* Add 'License' and 'License URI' header tags to readme.txt and plugin file
+* Add banner image for plugin page
+* Remove ending PHP close tag
+* Note compatibility through WP 3.4+
+
 = 1.1.4 =
 * Bugfix for notices when non-standard comment types are present (by explicitly supporting pingbacks and trackbacks, and ignoring non-standard comment types)
 * CSS tweak to prevent top of comment bubble from being clipped
@@ -126,6 +140,9 @@ Since commenters are identified by the email address they provided when making a
 
 
 == Upgrade Notice ==
+
+= 1.2 =
+Recommended update: minor interface changes related to comment bubble coloring; noted compatibility through WP 3.4+; explicitly stated license.
 
 = 1.1.4 =
 Minor bugfix update: prevent PHP notices when non-standard comment types are present; noted compatibility through WP 3.3+.
