@@ -2,11 +2,11 @@
 /**
  * @package Admin_Commenters_Comments_Count
  * @author Scott Reilly
- * @version 1.2
+ * @version 1.2.1
  */
 /*
 Plugin Name: Admin Commenters Comments Count
-Version: 1.2
+Version: 1.2.1
 Plugin URI: http://coffee2code.com/wp-plugins/admin-commenters-comments-count/
 Author: Scott Reilly
 Author URI: http://coffee2code.com/
@@ -14,7 +14,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Description: Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
 
-Compatible with WordPress 2.8 through 3.4+
+Compatible with WordPress 2.8 through 3.5+
 
 =>> Read the accompanying readme.txt file for instructions and documentation.
 =>> Also, visit the plugin's homepage for additional information and updates.
@@ -25,7 +25,7 @@ TODO:
 */
 
 /*
-	Copyright (c) 2009-2012 by Scott Reilly (aka coffee2code)
+	Copyright (c) 2009-2013 by Scott Reilly (aka coffee2code)
 
 	This program is free software; you can redistribute it and/or
 	modify it under the terms of the GNU General Public License
@@ -42,6 +42,8 @@ TODO:
 	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+defined( 'ABSPATH' ) or die();
+
 if ( is_admin() && ! class_exists( 'c2c_AdminCommentersCommentsCount' ) ) :
 
 class c2c_AdminCommentersCommentsCount {
@@ -52,7 +54,7 @@ class c2c_AdminCommentersCommentsCount {
 	 * @since 1.1.4
 	 */
 	public static function version() {
-		return '1.2';
+		return '1.2.1';
 	}
 
 	/**
@@ -68,10 +70,10 @@ class c2c_AdminCommentersCommentsCount {
 	 * Outputs CSS within style tags
 	 */
 	public static function add_css() {
-		echo <<<CSS
+		echo <<<HTML
 		<style type="text/css">
 		.author-com-count {float:right;text-align:center;margin-right:5px;margin-top:2px;height:1.3em;line-height:1.1em;}
-		#dashboard_recent_comments .author-com-count {margin-top:4px;}
+		#dashboard_recent_comments .author-com-count {margin-top:5px;}
 		.author-com-count:hover {background-position:22% -3px;}
 		#the-comment-list a.author-com-count {background-position:center -80px;}
 		#the-comment-list a.author-com-count span {background-color:#bbb;color:#fff;}
@@ -82,7 +84,7 @@ class c2c_AdminCommentersCommentsCount {
 		div.post-and-author-com-count-wrapper {position:relative; display:inline;}
 		</style>
 
-CSS;
+HTML;
 	}
 
 	/**

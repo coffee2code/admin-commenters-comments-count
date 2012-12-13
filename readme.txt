@@ -5,9 +5,9 @@ Tags: commenters, comment count, comment author, comments, comment, admin, coffe
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 2.8
-Tested up to: 3.4
-Stable tag: 1.2
-Version: 1.2
+Tested up to: 3.5
+Stable tag: 1.2.1
+Version: 1.2.1
 
 Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
 
@@ -75,6 +75,12 @@ Since commenters are identified by the email address they provided when making a
 
 == Changelog ==
 
+= 1.2.1 =
+* Add check to prevent execution of code if file is directly accessed
+* Note compatibility through WP 3.5+
+* Update copyright date (2013)
+* Move screenshots into repo's assets directory
+
 = 1.2 =
 * Add CSS rule to set text color to white to supersede CSS styling done by latest Akismet
 * Default to gray comment bubble
@@ -140,6 +146,9 @@ Since commenters are identified by the email address they provided when making a
 
 
 == Upgrade Notice ==
+
+= 1.2.1 =
+Trivial update: noted compatibility through WP 3.5+
 
 = 1.2 =
 Recommended update: minor interface changes related to comment bubble coloring; noted compatibility through WP 3.4+; explicitly stated license.
