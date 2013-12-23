@@ -1,13 +1,12 @@
 === Admin Commenters Comments Count ===
 Contributors: coffee2code
-Donate link: http://coffee2code.com/donate
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6ARCFJ9TX3522
 Tags: commenters, comment count, comment author, comments, comment, admin, coffee2code
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Requires at least: 2.8
-Tested up to: 3.5
-Stable tag: 1.2.1
-Version: 1.2.1
+Requires at least: 3.8
+Tested up to: 3.8
+Stable tag: 1.3
 
 Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
 
@@ -25,18 +24,18 @@ This plugin adds a handy feature to the WordPress admin pages to allow you to:
 * Quickly see how many total comments a particular commenter has made, and how many comments are pending
 * Easily go to a listing of all comments by a commenter, in order to see what and when they last commented, or what/when they first commented
 
-This plugin adds a linked comment count next to every appearance of a commenter in the admin.  The link takes you to the admin page listing all comments for that particular commenter.  The count displays all approved comments attributed to that commenter.  If you hover over the comment count, the hover text indicates how many pending comments they also have, if any.
+This plugin adds a linked comment count next to every appearance of a commenter in the admin. The link takes you to the admin page listing all comments for that particular commenter. The count displays all approved comments attributed to that commenter. If you hover over the comment count, the hover text indicates how many pending comments they also have, if any.
 
 Specifically, the linked comment count appears next to commenters in:
 
-* The "Edit Comments" listing of comments (including comment search results)
-* The "Edit Comments for 'POST_TITLE'" listing of post-specific comments
+* The "Comments" listing of comments (including comment search results)
+* The "Comments for 'POST_TITLE'" listing of post-specific comments
 * The "Discussion" box of the "Edit Post" page for a post with comments
 * The "Recent Comments" admin dashboard widget
 
-Commenters are identified by the email address they provided when commenting.  If your site does not require that commenters submit their email address when commenting, this plugin will use the commenter's name as the identifier, though since this is a publicly viewable piece of data it's possible that multiple people could be posting under the same "name", so this method has the potential to be not as accurate.
+Commenters are identified by the email address they provided when commenting. If your site does not require that commenters submit their email address when commenting, this plugin will use the commenter's name as the identifier, though since this is a publicly viewable piece of data it's possible that multiple people could be posting under the same "name", so this method has the potential to be not as accurate.
 
-Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/admin-commenters-comments-count/) | [Plugin Directory Page](http://wordpress.org/extend/plugins/admin-commenters-comments-count/) | [Author Homepage](http://coffee2code.com)
+Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/admin-commenters-comments-count/) | [Plugin Directory Page](http://wordpress.org/plugins/admin-commenters-comments-count/) | [Author Homepage](http://coffee2code.com)
 
 
 == Installation ==
@@ -64,16 +63,33 @@ Commenters are identified by the email address they provided when making a comme
 
 Since commenters are identified by the email address they provided when making a comment, if they supply an alternate email address for a comment, the plugin treats that email account as a separate person.
 
+= Does this plugin include unit tests? =
+
+Yes.
+
 
 == Screenshots ==
 
-1. A screenshot of the 'Edit Comments' admin page with the comment count appearing next to the commenter's name.
-2. A screenshot of the 'Edit Comments on POST TITLE' admin page with the comment count appearing next to the commenter's name.
-3. A screenshot of the 'Recent Comments' admin dashboard widget with the comment count appearing next to the commenter's name.
-4. A screenshot of the 'Discussion' panel on the 'Edit Post' admin page with the comment count appearing next to the commenter's name.
+1. A screenshot of the 'Comments' admin page with the comment count appearing next to the commenter's name. The most recent comment is from someone who has not commented on the site before. The second comment is from someone who has commented 13 times before. The hover text on the comment bubble reveals there are currently 13 approved comments and 3 pending comments for the visitor.
+2. A screenshot of the 'Comments on POST TITLE' admin page with the comment count appearing next to the commenter's name.
+3. A screenshot of the 'Activity' admin dashboard widget with the comment count appearing next to the commenter's name.
+4. A screenshot of the 'Comments' metabox on the 'Edit Post' admin page with the comment count appearing next to the commenter's name.
 
 
 == Changelog ==
+
+= 1.3 (2013-12-23) =
+* Enqueue custom CSS file instead of adding CSS to page head
+* Change CSS to allow comment bubbles to take on colors of active admin theme
+* Change initialization to fire on 'plugins_loaded'
+* Add unit tests
+* Minor documentation tweaks
+* Note compatibility through WP 3.8+
+* Drop compatibility with version of WP older than 3.8
+* Update copyright date (2014)
+* Change donate link
+* Update screenshots for WP 3.8 admin refresh
+* Update banner for WP 3.8 admin refresh
 
 = 1.2.1 =
 * Add check to prevent execution of code if file is directly accessed
@@ -146,6 +162,9 @@ Since commenters are identified by the email address they provided when making a
 
 
 == Upgrade Notice ==
+
+= 1.3 =
+Recommended update: enqueue custom CSS file instead of adding to page head; added unit tests; modified initialization; noted compatibility through WP 3.8+; dropped pre-WP 3.8 compatibility
 
 = 1.2.1 =
 Trivial update: noted compatibility through WP 3.5+

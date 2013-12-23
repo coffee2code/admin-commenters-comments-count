@@ -1,0 +1,40 @@
+.author-com-count {
+	float: right;
+	text-align: center;
+	margin-right: 5px;
+	margin-top: 2px;
+	height: 1.3em;
+	line-height: 1.1em;
+}
+#dashboard_recent_comments .author-com-count {
+	margin-top: 5px;
+}
+/*
+.author-com-count:hover {
+	background-position: 22% -3px;
+}
+#the-comment-list a.author-com-count {
+	background-position: center -80px;
+}
+
+#the-comment-list a.author-com-count span {
+	background-color:#bbb; color:#fff;
+}
+#the-comment-list a.author-com-count.author-com-pending {
+	background-position: center -55px;
+}
+#the-comment-list a.author-com-count.author-com-pending span {
+	background-color: #21759B;
+}
+#the-comment-list a.author-com-count:hover, #the-comment-list a.author-com-count.author-com-pending:hover {
+	background-position: center -3px;
+}
+#the-comment-list a.author-com-count:hover span, #the-comment-list a.author-com-count.author-com-pending:hover span {
+	background-color: #d54e21;
+}
+div.post-and-author-com-count-wrapper {
+	position: relative;
+	display: inline;
+}
+
+*/

@@ -2,11 +2,11 @@
 /**
  * @package Admin_Commenters_Comments_Count
  * @author Scott Reilly
- * @version 1.2.1
+ * @version 1.3
  */
 /*
 Plugin Name: Admin Commenters Comments Count
-Version: 1.2.1
+Version: 1.3
 Plugin URI: http://coffee2code.com/wp-plugins/admin-commenters-comments-count/
 Author: Scott Reilly
 Author URI: http://coffee2code.com/
@@ -14,18 +14,22 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Description: Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
 
-Compatible with WordPress 2.8 through 3.5+
+Compatible with WordPress 3.8+
 
 =>> Read the accompanying readme.txt file for instructions and documentation.
 =>> Also, visit the plugin's homepage for additional information and updates.
-=>> Or visit: http://wordpress.org/extend/plugins/admin-commenters-comments-count/
+=>> Or visit: http://wordpress.org/plugins/admin-commenters-comments-count/
 
 TODO:
 	* When a comments gets approved/unapproved via comment action links, update commenter's count accordingly
+	* Allow admin to manually group commenters with different email addresses (allows grouping a person who
+	  may be using multiple email addresses, or maybe admin prefers to group people per organization). The reported
+	  counts would be for the group and not the individual. The link to see the emails would search for all of the
+	  email addresses in the group.
 */
 
 /*
-	Copyright (c) 2009-2013 by Scott Reilly (aka coffee2code)
+	Copyright (c) 2009-2014 by Scott Reilly (aka coffee2code)
 
 	This program is free software; you can redistribute it and/or
 	modify it under the terms of the GNU General Public License
@@ -54,37 +58,42 @@ class c2c_AdminCommentersCommentsCount {
 	 * @since 1.1.4
 	 */
 	public static function version() {
-		return '1.2.1';
+		return '1.3';
 	}
 
 	/**
-	 * Class constructor: initializes class variables and adds actions and filters.
+	 * Initializer
 	 */
 	public static function init() {
-		add_action( 'admin_head',              array( __CLASS__, 'add_css' ) );
-		add_filter( 'comment_author',          array( __CLASS__, 'comment_author' ) );
-		add_filter( 'get_comment_author_link', array( __CLASS__, 'get_comment_author_link' ) );
+		add_action( 'plugins_loaded', array( __CLASS__, 'do_init' ) );
 	}
 
 	/**
-	 * Outputs CSS within style tags
+	 * Performs initialization
 	 */
-	public static function add_css() {
-		echo <<<HTML
-		<style type="text/css">
-		.author-com-count {float:right;text-align:center;margin-right:5px;margin-top:2px;height:1.3em;line-height:1.1em;}
-		#dashboard_recent_comments .author-com-count {margin-top:5px;}
-		.author-com-count:hover {background-position:22% -3px;}
-		#the-comment-list a.author-com-count {background-position:center -80px;}
-		#the-comment-list a.author-com-count span {background-color:#bbb;color:#fff;}
-		#the-comment-list a.author-com-count.author-com-pending {background-position:center -55px;}
-		#the-comment-list a.author-com-count.author-com-pending span {background-color:#21759B;}
-		#the-comment-list a.author-com-count:hover, #the-comment-list a.author-com-count.author-com-pending:hover {background-position:center -3px;}
-		#the-comment-list a.author-com-count:hover span, #the-comment-list a.author-com-count.author-com-pending:hover span {background-color:#d54e21;}
-		div.post-and-author-com-count-wrapper {position:relative; display:inline;}
-		</style>
+	public static function do_init() {
+		add_filter( 'comment_author',          array( __CLASS__, 'comment_author'          ) );
+		add_filter( 'get_comment_author_link', array( __CLASS__, 'get_comment_author_link' ) );
+		add_action( 'admin_init',              array( __CLASS__, 'register_styles'         ) );
+		add_action( 'admin_enqueue_scripts',   array( __CLASS__, 'enqueue_admin_css'       ) );
+	}
 
-HTML;
+	/**
+	 * Registers styles.
+	 *
+	 * @since 1.3
+	 */
+	public static function register_styles() {
+		wp_register_style( __CLASS__ . '_admin', plugins_url( 'admin.css', __FILE__ ) );
+	}
+
+	/**
+	 * Enqueues stylesheets if the user has admin expert mode activated.
+	 *
+	 * @since 1.3
+	 */
+	public static function enqueue_admin_css() {
+		wp_enqueue_style( __CLASS__ . '_admin' );
 	}
 
 	/**
@@ -142,11 +151,18 @@ HTML;
 
 		$url = $comment_count+$pending_count > 0 ? 'edit-comments.php?s=' . esc_attr( urlencode( $author_email ) ) : '#';
 
-		return "
+		// If appearing on the dashboard, we need to wrap in <strong> as is done elsewhere.
+		$screen = get_current_screen();
+		$is_dashboard = $screen && 'dashboard' == $screen->id;
+		$html = $is_dashboard ? '<strong>' : '';
+		$html .= "
 			<div class='post-com-count-wrapper post-and-author-com-count-wrapper'>
-			<a class='author-com-count post-com-count $pclass' href='$url' title='" . esc_attr( $msg ) . "' style=''>
+			<a class='author-com-count post-com-count$pclass' href='$url' title='" . esc_attr( $msg ) . "'>
 			<span class='comment-count'>$comment_count</span>
 			</a></div>$author_name";
+		$html .= $is_dashboard ? '</strong>' : '';
+
+		return $html;
 	}
 
 	/**
