@@ -4,9 +4,9 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: commenters, comment count, comment author, comments, comment, admin, coffee2code
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Requires at least: 3.8
-Tested up to: 3.8
-Stable tag: 1.3
+Requires at least: 3.9
+Tested up to: 4.0
+Stable tag: 1.4
 
 Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
 
@@ -32,10 +32,11 @@ Specifically, the linked comment count appears next to commenters in:
 * The "Comments for 'POST_TITLE'" listing of post-specific comments
 * The "Discussion" box of the "Edit Post" page for a post with comments
 * The "Recent Comments" admin dashboard widget
+* The "Users" listing of users (as the column "Comments")
 
 Commenters are identified by the email address they provided when commenting. If your site does not require that commenters submit their email address when commenting, this plugin will use the commenter's name as the identifier, though since this is a publicly viewable piece of data it's possible that multiple people could be posting under the same "name", so this method has the potential to be not as accurate.
 
-Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/admin-commenters-comments-count/) | [Plugin Directory Page](http://wordpress.org/plugins/admin-commenters-comments-count/) | [Author Homepage](http://coffee2code.com)
+Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/admin-commenters-comments-count/) | [Plugin Directory Page](https://wordpress.org/plugins/admin-commenters-comments-count/) | [Author Homepage](http://coffee2code.com)
 
 
 == Installation ==
@@ -61,7 +62,11 @@ Commenters are identified by the email address they provided when making a comme
 
 = Why does it report someone as having less comments than I know they've actually made? =
 
-Since commenters are identified by the email address they provided when making a comment, if they supply an alternate email address for a comment, the plugin treats that email account as a separate person.
+Since commenters are identified by the email address they provided when making a comment, if they supply an alternative email address for a comment, the plugin treats that email address as a separate person.
+
+= How do I hide (or show) the "Comments" column in the listing of the admin Users page? =
+
+Click the "Screen Options" link in the upper-right of the page. It will slide down a form. Click (or unclick) the checkbox for "Comments" to show (or hide) the column.
 
 = Does this plugin include unit tests? =
 
@@ -77,6 +82,21 @@ Yes.
 
 
 == Changelog ==
+
+= 1.4 (2014-08-30) =
+* Add 'Comments' column to admin user listing with linked count of that user's comments
+* Modify markup output to accommodate changes made in WP 3.9
+* Abstract comment count logic into get_comments_count()
+* Abstract admin comments URL link into get_comments_url()
+* Remove commented out styles
+* Minor plugin header reformatting
+* Add more unit tests
+* Minor code reformatting (spacing, bracing)
+* Change documentation links to wp.org to be https
+* Note compatibility through WP 4.0+
+* Drop compatibility with version of WP older than 3.9
+* Change banner image
+* Add plugin icon
 
 = 1.3 (2013-12-23) =
 * Enqueue custom CSS file instead of adding CSS to page head
@@ -162,6 +182,9 @@ Yes.
 
 
 == Upgrade Notice ==
+
+= 1.4 =
+Recommended update: fixed appearance through WP 4.0+; added "Comments" column to admin Users page; dropped pre-WP 3.9 compatibility; added plugin icon.
 
 = 1.3 =
 Recommended update: enqueue custom CSS file instead of adding to page head; added unit tests; modified initialization; noted compatibility through WP 3.8+; dropped pre-WP 3.8 compatibility

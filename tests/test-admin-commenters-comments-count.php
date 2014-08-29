@@ -38,11 +38,11 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 			$title .= "; $pending_count pending";
 			$class = ' author-com-pending';
 		}
-		return "
-			<div class='post-com-count-wrapper post-and-author-com-count-wrapper'>
-			<a class='author-com-count post-com-count$class' href='edit-comments.php?s=" . esc_attr( urlencode( $email ) ) . "' title='" . esc_attr( $title ) . "'>
+		return "</strong>
+			<span class='post-com-count-wrapper post-and-author-com-count-wrapper'>
+			<a class='author-com-count post-com-count$class' href='http://example.org/wp-admin/edit-comments.php?s=" . esc_attr( urlencode( $email ) ) . "' title='" . esc_attr( $title ) . "'>
 			<span class='comment-count'>$approved_count</span>
-			</a></div>$name";
+			</a></span><strong>$name";
 	}
 
 	private function get_comment_author_output( $comment_id ) {
@@ -132,4 +132,41 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 		$this->assertEquals( $this->expected_output( 2, 0, 'Bravo User', 'bravo@example.org' ), c2c_AdminCommentersCommentsCount::comment_author( $bravo_comments[0] ) );
 	}
 
+	function test_get_comments_count_by_comment_author_email() {
+		$post_id = $this->factory->post->create();
+		$this->create_comments( $post_id, 5, 'alpha' );
+		$this->create_comments( $post_id, 1, 'alpha', array( 'comment_approved' => '0' ) );
+
+		$this->assertEquals( array( 5, 1 ), c2c_AdminCommentersCommentsCount::get_comments_count( 'comment_author_email', 'alpha@example.org' ) );
+	}
+
+	function test_get_comments_count_by_comment_author() {
+		$this->create_comments( null, 5, 'alpha' );
+		$this->create_comments( null, 1, 'alpha', array( 'comment_approved' => '0' ) );
+
+		$this->assertEquals( array( 5, 1 ), c2c_AdminCommentersCommentsCount::get_comments_count( 'comment_author', 'Alpha User' ) );
+	}
+
+	function test_get_comments_count_by_comment_author_email_and_user_id() {
+		$user_id = $this->factory->user->create( array( 'user_email' => 'something@example.com' ) );
+
+		$this->create_comments( null, 5, 'alpha' );
+		$this->create_comments( null, 1, 'alpha', array( 'comment_approved' => '0' ) );
+		$this->create_comments( null, 1, 'alpha', array( 'comment_author_email' => 'notalpha@example.com', 'user_id' => $user_id ) );
+
+		$this->assertEquals( array( 5, 1 ), c2c_AdminCommentersCommentsCount::get_comments_count( 'comment_author_email', 'alpha@example.org' ) );
+		$this->assertEquals( array( 6, 1 ), c2c_AdminCommentersCommentsCount::get_comments_count( 'comment_author_email', 'alpha@example.org', 'comment', $user_id ) );
+	}
+
+	function test_get_comments_count_on_user_without_comments() {
+		$this->assertEquals( array( 0, 0 ), c2c_AdminCommentersCommentsCount::get_comments_count( 'comment_author_email', 'alpha@example.org' ) );
+		$this->assertEquals( array( 0, 0 ), c2c_AdminCommentersCommentsCount::get_comments_count( 'comment_author', 'alpha' ) );
+	}
+
+	function test_get_comments_url() {
+		$this->assertEquals(
+			'http://example.org/wp-admin/edit-comments.php?s=' . urlencode( 'test@example.com' ),
+			c2c_AdminCommentersCommentsCount::get_comments_url( 'test@example.com' )
+		);
+	}
 }
