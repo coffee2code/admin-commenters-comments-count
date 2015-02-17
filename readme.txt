@@ -5,8 +5,8 @@ Tags: commenters, comment count, comment author, comments, comment, admin, coffe
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.9
-Tested up to: 4.0
-Stable tag: 1.4
+Tested up to: 4.1
+Stable tag: 1.5
 
 Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
 
@@ -79,9 +79,19 @@ Yes.
 2. A screenshot of the 'Comments on POST TITLE' admin page with the comment count appearing next to the commenter's name.
 3. A screenshot of the 'Activity' admin dashboard widget with the comment count appearing next to the commenter's name.
 4. A screenshot of the 'Comments' metabox on the 'Edit Post' admin page with the comment count appearing next to the commenter's name.
+5. A screenshot of the 'Comments' column added to the admin user listing with the linked count of each user's comments.
 
 
 == Changelog ==
+
+= 1.5 (2015-02-05) =
+* Add `is_admin()` check to `comment_author()`
+* Always load class rather than just in the admin
+* Add to, and improve, unit tests
+* Add screenshot showing 'Comments' column in user listing
+* Curly-braced variables used in strings
+* Note compatibility through WP 4.1+
+* Update copyright date (2015)
 
 = 1.4 (2014-08-30) =
 * Add 'Comments' column to admin user listing with linked count of that user's comments
@@ -182,6 +192,9 @@ Yes.
 
 
 == Upgrade Notice ==
+
+= 1.5 =
+Minor update: added and improved unit tests, added new screenshot, noted compatibility through WP 4.1+, and updated copyright date.
 
 = 1.4 =
 Recommended update: fixed appearance through WP 4.0+; added "Comments" column to admin Users page; dropped pre-WP 3.9 compatibility; added plugin icon.

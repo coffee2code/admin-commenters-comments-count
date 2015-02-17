@@ -2,7 +2,7 @@
 
 class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 
-	/**
+	/*
 	 *
 	 * HELPER FUNCTIONS
 	 *
@@ -54,25 +54,45 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 	}
 
 
-	/**
+	/*
 	 *
 	 * TESTS
 	 *
 	 */
 
-	function test_not_in_admin_area() {
-		$this->assertFalse( is_admin() );
+	function test_plugin_version() {
+		$this->assertEquals( '1.5', c2c_AdminCommentersCommentsCount::version() );
 	}
 
-	function test_class_not_available_on_frontend() {
-		$this->assertFalse( class_exists( 'c2c_AdminCommentersCommentsCount' ) );
+	function test_class_is_available() {
+		$this->assertTrue( class_exists( 'c2c_AdminCommentersCommentsCount' ) );
+	}
+
+	function test_plugins_loaded_action_triggers_do_init() {
+		$this->assertNotFalse( has_filter( 'plugins_loaded', array( 'c2c_AdminCommentersCommentsCount', 'do_init' ) ) );
+	}
+
+	function test_get_comment_author_link_filter_is_registered() {
+		$this->assertNotFalse( has_filter( 'get_comment_author_link', array( 'c2c_AdminCommentersCommentsCount', 'get_comment_author_link' ) ) );
+	}
+
+	function test_comment_author_filter_is_registered() {
+		$this->assertNotFalse( has_filter( 'comment_author', array( 'c2c_AdminCommentersCommentsCount', 'comment_author' ) ) );
 	}
 
 	function test_get_comment_author_link_unaffected_on_frontend() {
 		$comments = $this->create_comments( null, 3 );
 		$GLOBALS['comment'] = get_comment( $comments[0] );
 
-		$this->AssertEquals( "<a href='http://example.org/alpha/' rel='external nofollow' class='url'>Alpha User</a>", get_comment_author_link( $comments[0] ) );
+		$this->assertEquals( "<a href='http://example.org/alpha/' rel='external nofollow' class='url'>Alpha User</a>", get_comment_author_link( $comments[0] ) );
+		$this->assertEquals( 'originallink', apply_filters( 'get_comment_author_link', 'originallink' ) );
+	}
+
+	function test_comment_author_link_unaffected_on_frontend() {
+		$comments = $this->create_comments( null, 3 );
+		$GLOBALS['comment'] = get_comment( $comments[0] );
+
+		$this->assertEquals( 'Alpha User', $this->get_comment_author_output( $comments[0] ) );
 		$this->assertEquals( 'originallink', apply_filters( 'get_comment_author_link', 'originallink' ) );
 	}
 
@@ -84,16 +104,8 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 	// necessary to set the environment to be the admin area.
 	function test_in_admin_area() {
 		define( 'WP_ADMIN', true );
-		// Re-require plugin file in admin context so class gets loaded
-		require( './admin-commenters-comments-count.php' );
-		// Re-fire 'plugins_loaded' action so plugin can set itself up
-		do_action( 'plugins_loaded' );
 
 		$this->assertTrue( is_admin() );
-	}
-
-	function test_class_is_available_on_backend() {
-		$this->assertTrue( class_exists( 'c2c_AdminCommentersCommentsCount' ) );
 	}
 
 	function test_get_comment_author_link_affected_on_backend() {
@@ -105,13 +117,15 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 
 		$GLOBALS['comment'] = get_comment( $comment_id );
 
-		$this->assertEquals( $this->expected_output( 5, 1, 'Alpha User', 'alpha@example.org' ), get_comment_author_link( $comment_id ) );
-		$this->assertEquals( $this->expected_output( 5, 1, 'Alpha User', 'alpha@example.org' ), c2c_AdminCommentersCommentsCount::get_comment_author_link( $comment_id ) );
+		$expected_output = $this->expected_output( 5, 1, 'Alpha User', 'alpha@example.org' );
+		$this->assertEquals( $expected_output, get_comment_author_link( $comment_id ) );
+		$this->assertEquals( $expected_output, c2c_AdminCommentersCommentsCount::get_comment_author_link( $comment_id ) );
 
 		$GLOBALS['comment'] = get_comment( $bravo_comments[0] );
 
-		$this->assertEquals( $this->expected_output( 2, 0, 'Bravo User', 'bravo@example.org' ), get_comment_author_link( $comment_id ) );
-		$this->assertEquals( $this->expected_output( 2, 0, 'Bravo User', 'bravo@example.org' ), c2c_AdminCommentersCommentsCount::get_comment_author_link( $bravo_comments[0] ) );
+		$expected_output = $this->expected_output( 2, 0, 'Bravo User', 'bravo@example.org' );
+		$this->assertEquals( $expected_output, get_comment_author_link( $comment_id ) );
+		$this->assertEquals( $expected_output, c2c_AdminCommentersCommentsCount::get_comment_author_link( $bravo_comments[0] ) );
 	}
 
 	function test_comment_author_link_affected_on_backend() {

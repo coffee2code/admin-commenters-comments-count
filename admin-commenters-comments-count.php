@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Admin Commenters Comments Count
- * Version:     1.4
+ * Version:     1.5
  * Plugin URI:  http://coffee2code.com/wp-plugins/admin-commenters-comments-count/
  * Author:      Scott Reilly
  * Author URI:  http://coffee2code.com/
@@ -9,7 +9,7 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Description: Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
  *
- * Compatible with WordPress 3.9 through 4.0+.
+ * Compatible with WordPress 3.9 through 4.1+.
  *
  * =>> Read the accompanying readme.txt file for instructions and documentation.
  * =>> Also, visit the plugin's homepage for additional information and updates.
@@ -24,11 +24,11 @@
  *
  * @package Admin_Commenters_Comments_Count
  * @author Scott Reilly
- * @version 1.4
+ * @version 1.5
  */
 
 /*
-	Copyright (c) 2009-2014 by Scott Reilly (aka coffee2code)
+	Copyright (c) 2009-2015 by Scott Reilly (aka coffee2code)
 
 	This program is free software; you can redistribute it and/or
 	modify it under the terms of the GNU General Public License
@@ -47,7 +47,7 @@
 
 defined( 'ABSPATH' ) or die();
 
-if ( is_admin() && ! class_exists( 'c2c_AdminCommentersCommentsCount' ) ) :
+if ( ! class_exists( 'c2c_AdminCommentersCommentsCount' ) ) :
 
 class c2c_AdminCommentersCommentsCount {
 
@@ -60,7 +60,7 @@ class c2c_AdminCommentersCommentsCount {
 	 * @since 1.1.4
 	 */
 	public static function version() {
-		return '1.4';
+		return '1.5';
 	}
 
 	/**
@@ -179,15 +179,15 @@ class c2c_AdminCommentersCommentsCount {
 		}
 
 		if ( $user_id && 'user_id' != $field ) {
-			$query = "SELECT COUNT(*) FROM $wpdb->comments WHERE (" . $field . ' = %s OR user_id = %d ) AND comment_approved = %d';
+			$query = "SELECT COUNT(*) FROM {$wpdb->comments} WHERE ( {$field} = %s OR user_id = %d ) AND comment_approved = %d";
 			$comment_count = $wpdb->get_var( $wpdb->prepare( $query, $value, $user_id, 1 ) );
 			$pending_count = $wpdb->get_var( $wpdb->prepare( $query, $value, $user_id, 0 ) );
 		} elseif ( 'comment' == $type ) {
-			$query = "SELECT COUNT(*) FROM $wpdb->comments WHERE " . $field . ' = %s AND comment_approved = %d';
+			$query = "SELECT COUNT(*) FROM {$wpdb->comments} WHERE {$field} = %s AND comment_approved = %d";
 			$comment_count = $wpdb->get_var( $wpdb->prepare( $query, $value, 1 ) );
 			$pending_count = $wpdb->get_var( $wpdb->prepare( $query, $value, 0 ) );
 		} elseif ( 'pingback' == $type || 'trackback' == $type ) {
-			$query = "SELECT COUNT(*) FROM $wpdb->comments WHERE comment_author_url LIKE %s AND comment_type = %s AND comment_approved = %d";
+			$query = "SELECT COUNT(*) FROM {$wpdb->comments} WHERE comment_author_url LIKE %s AND comment_type = %s AND comment_approved = %d";
 			$comment_count = $wpdb->get_var( $wpdb->prepare( $query, $author_url.'%', $type, 1 ) );
 			$pending_count = $wpdb->get_var( $wpdb->prepare( $query, $author_url.'%', $type, 0 ) );
 		} else {
@@ -223,6 +223,10 @@ class c2c_AdminCommentersCommentsCount {
 	 * @return string Comment author link plus linked comment count markup.
 	 */
 	public static function comment_author( $author_name ) {
+		if ( ! is_admin() ) {
+			return $author_name;
+		}
+
 		global $comment;
 		$type = get_comment_type();
 
