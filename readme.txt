@@ -5,8 +5,8 @@ Tags: commenters, comment count, comment author, comments, comment, admin, coffe
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.9
-Tested up to: 4.1
-Stable tag: 1.5
+Tested up to: 4.3
+Stable tag: 1.6
 
 Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
 
@@ -83,6 +83,12 @@ Yes.
 
 
 == Changelog ==
+
+= 1.6 (2015-09-19) =
+* Bugfix: Add support for changes in WP 4.3 (to fix display of comment bubble background).
+* Change: Minor inline documentation spacing tweaks.
+* Add: Add 'Text Domain' field to plugin header.
+* Change: Note compatibility through WP 4.3+.
 
 = 1.5 (2015-02-05) =
 * Add `is_admin()` check to `comment_author()`
@@ -192,6 +198,9 @@ Yes.
 
 
 == Upgrade Notice ==
+
+= 1.6 =
+Recommended update: fixed to display comment count background in WP 4.3; noted compatibility through WP 4.3+.
 
 = 1.5 =
 Minor update: added and improved unit tests, added new screenshot, noted compatibility through WP 4.1+, and updated copyright date.

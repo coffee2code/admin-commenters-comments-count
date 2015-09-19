@@ -1,30 +1,37 @@
 <?php
 /**
  * Plugin Name: Admin Commenters Comments Count
- * Version:     1.5
+ * Version:     1.6
  * Plugin URI:  http://coffee2code.com/wp-plugins/admin-commenters-comments-count/
  * Author:      Scott Reilly
  * Author URI:  http://coffee2code.com/
+ * Text Domain: admin-commenters-comments-count
  * License:     GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Description: Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
  *
- * Compatible with WordPress 3.9 through 4.1+.
+ * Compatible with WordPress 3.9 through 4.3+.
  *
  * =>> Read the accompanying readme.txt file for instructions and documentation.
  * =>> Also, visit the plugin's homepage for additional information and updates.
  * =>> Or visit: https://wordpress.org/plugins/admin-commenters-comments-count/
  *
+ * @package Admin_Commenters_Comments_Count
+ * @author  Scott Reilly
+ * @version 1.6
+ */
+
+/*
  * TODO:
- * * When a comments gets approved/unapproved via comment action links, update commenter's count accordingly
- * * Allow admin to manually group commenters with different email addresses (allows grouping a person who
+ * - Cache count for given field and value. So searching by email, and bob@example.com's comment is encountered
+ *   cache as "{$field}_{$value}" => $count. Even if just memoized.
+ * - When a comment gets approved/unapproved via comment action links, update commenter's count accordingly
+ * - Allow admin to manually group commenters with different email addresses (allows grouping a person who
  *   may be using multiple email addresses, or maybe admin prefers to group people per organization). The reported
  *   counts would be for the group and not the individual. The link to see the emails would search for all of the
- *   email addresses in the group.
+ *   email addresses in the group. Via filter maybe?
+ * - Add sortability to 'Comments' column in user table
  *
- * @package Admin_Commenters_Comments_Count
- * @author Scott Reilly
- * @version 1.5
  */
 
 /*
@@ -60,7 +67,7 @@ class c2c_AdminCommentersCommentsCount {
 	 * @since 1.1.4
 	 */
 	public static function version() {
-		return '1.5';
+		return '1.6';
 	}
 
 	/**
@@ -110,6 +117,7 @@ class c2c_AdminCommentersCommentsCount {
 	 * @since 1.4
 	 *
 	 * @param  array $users_columns Array of user column titles.
+	 *
 	 * @return array The $posts_columns array with the user comments count column's title added.
 	 */
 	public static function add_user_column( $users_columns ) {
@@ -126,7 +134,6 @@ class c2c_AdminCommentersCommentsCount {
 	 * @param  null   $null        Empty string. Not used.
 	 * @param  string $column_name The name of the column.
 	 * @param  int    $post_id     The id of the post being displayed.
-	 * @return void
 	 */
 	public static function handle_column_data( $null, $column_name, $user_id ) {
 		if ( self::$field != $column_name ) {
@@ -169,6 +176,7 @@ class c2c_AdminCommentersCommentsCount {
 	 * @param  string $value   The value of the field to check for.
 	 * @param  strig  $type    Optional. comment_type value.
 	 * @param  int    $user_id Optional. The user ID. This is searched for as an OR to the $field search. If set, forces $type to be 'comment'.
+	 *
 	 * @return array  Array of comment count and pending count.
 	*/
 	public static function get_comments_count( $field, $value, $type = 'comment', $user_id = null ) {
@@ -204,6 +212,7 @@ class c2c_AdminCommentersCommentsCount {
 	 * @since 1.4
 	 *
 	 * @param  string $email Email address.
+	 *
 	 * @return string
 	 */
 	public static function get_comments_url( $email ) {
@@ -220,6 +229,7 @@ class c2c_AdminCommentersCommentsCount {
 	 * commenting.
 	 *
 	 * @param string $author_name Name of the comment author.
+	 *
 	 * @return string Comment author link plus linked comment count markup.
 	 */
 	public static function comment_author( $author_name ) {
@@ -271,11 +281,24 @@ class c2c_AdminCommentersCommentsCount {
 		$is_dashboard = $screen && 'dashboard' == $screen->id;
 
 		$html = $is_dashboard ? '' : '</strong>';
-		$html .= "
-			<span class='post-com-count-wrapper post-and-author-com-count-wrapper'>
-			<a class='author-com-count post-com-count{$pclass}' href='" . esc_attr( $url ) . "' title='" . esc_attr( $msg ) . "'>
-			<span class='comment-count'>$comment_count</span>
-			</a></span>";
+
+		if ( version_compare( $GLOBALS['wp_version'], '4.3', '<' ) ) { // Older than WP 4.3
+			$html .= "
+				<span class='post-com-count-wrapper post-and-author-com-count-wrapper'>
+				<a class='author-com-count post-com-count{$pclass}' href='" . esc_attr( $url ) . "' title='" . esc_attr( $msg ) . "'>
+				<span class='comment-count comment-count-approved'>$comment_count</span>
+				</a></span>";
+		} else { // WP 4.3+
+			$comment_str = sprintf( _n( '%s comment', '%s comments', $comment_count, 'admin-commenters-comments-count' ), number_format_i18n( $comment_count ) );
+			$html .= "
+				<span class='column-response'>
+				<span class='post-com-count-wrapper post-and-author-com-count-wrapper'>
+				<a href='" . esc_attr( $url ) . "' title='" . esc_attr( $msg ) . "' class='author-com-count post-com-count{$pclass} post-com-count-approved'>
+				<span class='comment-count-approved' aria-hidden='true'>$comment_count</span>
+				<span class='screen-reader-text'>$comment_str</span>
+				</a></span></span>";
+		}
+
 		$html .= $is_dashboard ? '' : '<strong>';
 		$html .= $author_name;
 
@@ -287,6 +310,7 @@ class c2c_AdminCommentersCommentsCount {
 	 * comment_author() when in the admin.
 	 *
 	 * @param string $author_link Author link
+	 *
 	 * @return string Modified author link
 	 */
 	public static function get_comment_author_link( $author_link ) {
