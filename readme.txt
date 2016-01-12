@@ -5,8 +5,8 @@ Tags: commenters, comment count, comment author, comments, comment, admin, coffe
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.9
-Tested up to: 4.3
-Stable tag: 1.6
+Tested up to: 4.4
+Stable tag: 1.7
 
 Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
 
@@ -83,6 +83,18 @@ Yes.
 
 
 == Changelog ==
+
+= 1.7 (2016-01-11) =
+* Bugfix: Fix bug preventing display of values for other custom columns in users table.
+* Add: Memoize commenter counts so they aren't re-queried more than once per page load.
+* Add: Add support for language packs by loading textdomain and explicit using it.
+* Add: Add inline docs for class variables.
+* Add: Add public method `reset_cache()`.
+* Add: Add private variable `$memoized`.
+* Change: Note compatibility through WP 4.4+.
+* Change: Explicitly declare methods in unit tests as public.
+* Change: Update copyright date (2016).
+* Add: Create empty index.php to prevent files from being listed if web server has enabled directory listings.
 
 = 1.6 (2015-09-19) =
 * Bugfix: Add support for changes in WP 4.3 (to fix display of comment bubble background).
@@ -198,6 +210,9 @@ Yes.
 
 
 == Upgrade Notice ==
+
+= 1.7 =
+Recommended update: bugfix for causing blank custom user columns, adjustments to utilize language packs, minor unit test tweaks, noted compatibility through WP 4.4+, and updated copyright date
 
 = 1.6 =
 Recommended update: fixed to display comment count background in WP 4.3; noted compatibility through WP 4.3+.

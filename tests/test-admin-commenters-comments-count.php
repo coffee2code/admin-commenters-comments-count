@@ -1,12 +1,19 @@
 <?php
 
+defined( 'ABSPATH' ) or die();
+
 class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 
-	/*
-	 *
-	 * HELPER FUNCTIONS
-	 *
-	 */
+	public function tearDown() {
+		parent::tearDown();
+		c2c_AdminCommentersCommentsCount::reset_cache();
+	}
+
+	//
+	//
+	// HELPER FUNCTIONS
+	//
+	//
 
 
 	private function create_comments( $post_id = null, $count = 1, $name = 'alpha', $comment_info = array() ) {
@@ -70,33 +77,33 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 	}
 
 
-	/*
-	 *
-	 * TESTS
-	 *
-	 */
+	//
+	//
+	// TESTS
+	//
+	//
 
-	function test_plugin_version() {
-		$this->assertEquals( '1.6', c2c_AdminCommentersCommentsCount::version() );
+	public function test_plugin_version() {
+		$this->assertEquals( '1.7', c2c_AdminCommentersCommentsCount::version() );
 	}
 
-	function test_class_is_available() {
+	public function test_class_is_available() {
 		$this->assertTrue( class_exists( 'c2c_AdminCommentersCommentsCount' ) );
 	}
 
-	function test_plugins_loaded_action_triggers_do_init() {
+	public function test_plugins_loaded_action_triggers_do_init() {
 		$this->assertNotFalse( has_filter( 'plugins_loaded', array( 'c2c_AdminCommentersCommentsCount', 'do_init' ) ) );
 	}
 
-	function test_get_comment_author_link_filter_is_registered() {
+	public function test_get_comment_author_link_filter_is_registered() {
 		$this->assertNotFalse( has_filter( 'get_comment_author_link', array( 'c2c_AdminCommentersCommentsCount', 'get_comment_author_link' ) ) );
 	}
 
-	function test_comment_author_filter_is_registered() {
+	public function test_comment_author_filter_is_registered() {
 		$this->assertNotFalse( has_filter( 'comment_author', array( 'c2c_AdminCommentersCommentsCount', 'comment_author' ) ) );
 	}
 
-	function test_get_comment_author_link_unaffected_on_frontend() {
+	public function test_get_comment_author_link_unaffected_on_frontend() {
 		$comments = $this->create_comments( null, 3 );
 		$GLOBALS['comment'] = get_comment( $comments[0] );
 
@@ -104,7 +111,7 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'originallink', apply_filters( 'get_comment_author_link', 'originallink' ) );
 	}
 
-	function test_comment_author_link_unaffected_on_frontend() {
+	public function test_comment_author_link_unaffected_on_frontend() {
 		$comments = $this->create_comments( null, 3 );
 		$GLOBALS['comment'] = get_comment( $comments[0] );
 
@@ -118,13 +125,13 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 
 	// This should be the first of the admin area tests and is
 	// necessary to set the environment to be the admin area.
-	function test_in_admin_area() {
+	public function test_in_admin_area() {
 		define( 'WP_ADMIN', true );
 
 		$this->assertTrue( is_admin() );
 	}
 
-	function test_get_comment_author_link_affected_on_backend_pre_43() {
+	public function test_get_comment_author_link_affected_on_backend_pre_43() {
 		$current_version = $GLOBALS['wp_version'];
 		$GLOBALS['wp_version'] = '4.2';
 
@@ -149,7 +156,7 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 		$GLOBALS['wp_version'] = $current_version;
 	}
 
-	function test_get_comment_author_link_affected_on_backend() {
+	public function test_get_comment_author_link_affected_on_backend() {
 		$post_id = $this->factory->post->create();
 
 		$this->create_comments( $post_id, 5, 'alpha' );
@@ -169,7 +176,7 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 		$this->assertEquals( $expected_output, c2c_AdminCommentersCommentsCount::get_comment_author_link( $bravo_comments[0] ) );
 	}
 
-	function test_comment_author_link_affected_on_backend_pre_43() {
+	public function test_comment_author_link_affected_on_backend_pre_43() {
 		$current_version = $GLOBALS['wp_version'];
 		$GLOBALS['wp_version'] = '4.2';
 
@@ -192,7 +199,7 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 		$GLOBALS['wp_version'] = $current_version;
 	}
 
-	function test_comment_author_link_affected_on_backend() {
+	public function test_comment_author_link_affected_on_backend() {
 		$post_id = $this->factory->post->create();
 
 		$this->create_comments( $post_id, 5, 'alpha' );
@@ -210,7 +217,7 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 		$this->assertEquals( $this->expected_output( 2, 0, 'Bravo User', 'bravo@example.org' ), c2c_AdminCommentersCommentsCount::comment_author( $bravo_comments[0] ) );
 	}
 
-	function test_get_comments_count_by_comment_author_email() {
+	public function test_get_comments_count_by_comment_author_email() {
 		$post_id = $this->factory->post->create();
 		$this->create_comments( $post_id, 5, 'alpha' );
 		$this->create_comments( $post_id, 1, 'alpha', array( 'comment_approved' => '0' ) );
@@ -218,14 +225,14 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 		$this->assertEquals( array( 5, 1 ), c2c_AdminCommentersCommentsCount::get_comments_count( 'comment_author_email', 'alpha@example.org' ) );
 	}
 
-	function test_get_comments_count_by_comment_author() {
+	public function test_get_comments_count_by_comment_author() {
 		$this->create_comments( null, 5, 'alpha' );
 		$this->create_comments( null, 1, 'alpha', array( 'comment_approved' => '0' ) );
 
 		$this->assertEquals( array( 5, 1 ), c2c_AdminCommentersCommentsCount::get_comments_count( 'comment_author', 'Alpha User' ) );
 	}
 
-	function test_get_comments_count_by_comment_author_email_and_user_id() {
+	public function test_get_comments_count_by_comment_author_email_and_user_id() {
 		$user_id = $this->factory->user->create( array( 'user_email' => 'something@example.com' ) );
 
 		$this->create_comments( null, 5, 'alpha' );
@@ -236,12 +243,12 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 		$this->assertEquals( array( 6, 1 ), c2c_AdminCommentersCommentsCount::get_comments_count( 'comment_author_email', 'alpha@example.org', 'comment', $user_id ) );
 	}
 
-	function test_get_comments_count_on_user_without_comments() {
+	public function test_get_comments_count_on_user_without_comments() {
 		$this->assertEquals( array( 0, 0 ), c2c_AdminCommentersCommentsCount::get_comments_count( 'comment_author_email', 'alpha@example.org' ) );
 		$this->assertEquals( array( 0, 0 ), c2c_AdminCommentersCommentsCount::get_comments_count( 'comment_author', 'alpha' ) );
 	}
 
-	function test_get_comments_url() {
+	public function test_get_comments_url() {
 		$this->assertEquals(
 			'http://example.org/wp-admin/edit-comments.php?s=' . urlencode( 'test@example.com' ),
 			c2c_AdminCommentersCommentsCount::get_comments_url( 'test@example.com' )

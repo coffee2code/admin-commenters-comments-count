@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Admin Commenters Comments Count
- * Version:     1.6
+ * Version:     1.7
  * Plugin URI:  http://coffee2code.com/wp-plugins/admin-commenters-comments-count/
  * Author:      Scott Reilly
  * Author URI:  http://coffee2code.com/
@@ -10,7 +10,7 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Description: Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
  *
- * Compatible with WordPress 3.9 through 4.3+.
+ * Compatible with WordPress 3.9 through 4.4+.
  *
  * =>> Read the accompanying readme.txt file for instructions and documentation.
  * =>> Also, visit the plugin's homepage for additional information and updates.
@@ -18,13 +18,11 @@
  *
  * @package Admin_Commenters_Comments_Count
  * @author  Scott Reilly
- * @version 1.6
+ * @version 1.7
  */
 
 /*
  * TODO:
- * - Cache count for given field and value. So searching by email, and bob@example.com's comment is encountered
- *   cache as "{$field}_{$value}" => $count. Even if just memoized.
  * - When a comment gets approved/unapproved via comment action links, update commenter's count accordingly
  * - Allow admin to manually group commenters with different email addresses (allows grouping a person who
  *   may be using multiple email addresses, or maybe admin prefers to group people per organization). The reported
@@ -35,7 +33,7 @@
  */
 
 /*
-	Copyright (c) 2009-2015 by Scott Reilly (aka coffee2code)
+	Copyright (c) 2009-2016 by Scott Reilly (aka coffee2code)
 
 	This program is free software; you can redistribute it and/or
 	modify it under the terms of the GNU General Public License
@@ -58,8 +56,33 @@ if ( ! class_exists( 'c2c_AdminCommentersCommentsCount' ) ) :
 
 class c2c_AdminCommentersCommentsCount {
 
-	private static $field       = 'commenters_count'; /* Changing this requires changing .css and .js files */
+	/**
+	 * The field name.
+	 *
+	 * Changing this requires changing .css and .js files.
+	 *
+	 * @var string
+	 * @access private
+	 */
+	private static $field       = 'commenters_count';
+
+	/**
+	 * The field title.
+	 *
+	 * @var string
+	 * @access private
+	 */
 	private static $field_title = '';
+
+	/**
+	 * Memoized array of commenter counts.
+	 *
+	 * @var string
+	 * @access private
+	 *
+	 * @since 1.7
+	 */
+	private static $memoized    = array();
 
 	/**
 	 * Returns version of the plugin.
@@ -67,7 +90,7 @@ class c2c_AdminCommentersCommentsCount {
 	 * @since 1.1.4
 	 */
 	public static function version() {
-		return '1.6';
+		return '1.7';
 	}
 
 	/**
@@ -82,24 +105,26 @@ class c2c_AdminCommentersCommentsCount {
 	 */
 	public static function do_init() {
 		// Set translatable and filterable strings
-		self::$field_title = __( 'Comments' );
+		self::$field_title = __( 'Comments', 'admin-commenters-comments-count' );
+
+		// Load textdomain.
+		load_plugin_textdomain( 'admin-commenters-comments-count' );
 
 		// Register hooks
 		add_filter( 'comment_author',             array( __CLASS__, 'comment_author'          )        );
 		add_filter( 'get_comment_author_link',    array( __CLASS__, 'get_comment_author_link' )        );
-		add_action( 'admin_init',                 array( __CLASS__, 'register_styles'         )        );
 		add_action( 'admin_enqueue_scripts',      array( __CLASS__, 'enqueue_admin_css'       )        );
 		add_filter( 'manage_users_columns',       array( __CLASS__, 'add_user_column'         )        );
-		add_action( 'manage_users_custom_column', array( __CLASS__, 'handle_column_data'      ), 10, 3 );
+		add_filter( 'manage_users_custom_column', array( __CLASS__, 'handle_column_data'      ), 10, 3 );
 	}
 
 	/**
-	 * Registers styles.
+	 * Resets cached data.
 	 *
-	 * @since 1.3
+	 * @since 1.7
 	 */
-	public static function register_styles() {
-		wp_register_style( __CLASS__ . '_admin', plugins_url( 'admin.css', __FILE__ ) );
+	public static function reset_cache() {
+		self::$memoized = array();
 	}
 
 	/**
@@ -108,7 +133,8 @@ class c2c_AdminCommentersCommentsCount {
 	 * @since 1.3
 	 */
 	public static function enqueue_admin_css() {
-		wp_enqueue_style( __CLASS__ . '_admin' );
+		wp_register_style( __CLASS__ . '_admin', plugins_url( 'assets/admin.css', __FILE__ ) );
+		wp_enqueue_style( __CLASS__ . '_admin', false, array(), self::version() );
 	}
 
 	/**
@@ -131,13 +157,13 @@ class c2c_AdminCommentersCommentsCount {
 	 *
 	 * @since 1.4
 	 *
-	 * @param  null   $null        Empty string. Not used.
-	 * @param  string $column_name The name of the column.
-	 * @param  int    $post_id     The id of the post being displayed.
+	 * @param string $output      Custom column output. Default empty.
+	 * @param string $column_name Column name.
+	 * @param int    $user_id     ID of the currently-listed user.
 	 */
-	public static function handle_column_data( $null, $column_name, $user_id ) {
+	public static function handle_column_data( $output, $column_name, $user_id ) {
 		if ( self::$field != $column_name ) {
-			return;
+			return $output;
 		}
 
 		$user = get_user_by( 'id', $user_id );
@@ -149,10 +175,10 @@ class c2c_AdminCommentersCommentsCount {
 		$ret = '';
 
 		if ( $show_link ) {
-			$msg = sprintf( _n( '%d comment', '%d comments', $comment_count ), $comment_count );
+			$msg = sprintf( _n( '%d comment', '%d comments', $comment_count, 'admin-commenters-comments-count' ), $comment_count );
 
 			if ( $pending_count ) {
-				$msg .= '; ' . sprintf( __( '%s pending' ), $pending_count );
+				$msg .= '; ' . sprintf( __( '%s pending', 'admin-commenters-comments-count' ), $pending_count );
 			}
 
 			$ret .= "<a href='" . esc_attr( self::get_comments_url( $user->user_email ) ) . "' title='" . esc_attr( $msg ) . "'>";
@@ -174,18 +200,25 @@ class c2c_AdminCommentersCommentsCount {
 	 *
 	 * @param  string $field   The comment field value to search. One of: comment_author, comment_author_email, comment_author_IP, comment_author_url, user_id
 	 * @param  string $value   The value of the field to check for.
-	 * @param  strig  $type    Optional. comment_type value.
-	 * @param  int    $user_id Optional. The user ID. This is searched for as an OR to the $field search. If set, forces $type to be 'comment'.
+	 * @param  string $type    Optional. comment_type value. Default 'comment'.
+	 * @param  int    $user_id Optional. The user ID. This is searched for as an OR to the $field search. If set, forces $type to be 'comment'. Default 0.
 	 *
 	 * @return array  Array of comment count and pending count.
 	*/
-	public static function get_comments_count( $field, $value, $type = 'comment', $user_id = null ) {
+	public static function get_comments_count( $field, $value, $type = 'comment', $user_id = 0 ) {
 		global $wpdb;
 
 		if ( ! in_array( $field, array( 'comment_author', 'comment_author_email', 'comment_author_IP', 'comment_author_url', 'user_id' ) ) ) {
 			$field = 'comment_author_email';
 		}
 
+		// Check if count has already been memoized.
+		$memoize_key = "{$field}_{$value}_{$type}_" . (int) $user_id;
+		if ( isset( self::$memoized[ $memoize_key ] ) && self::$memoized[ $memoize_key ] ) {
+			return self::$memoized[ $memoize_key ];
+		}
+
+		// Query for counts.
 		if ( $user_id && 'user_id' != $field ) {
 			$query = "SELECT COUNT(*) FROM {$wpdb->comments} WHERE ( {$field} = %s OR user_id = %d ) AND comment_approved = %d";
 			$comment_count = $wpdb->get_var( $wpdb->prepare( $query, $value, $user_id, 1 ) );
@@ -202,7 +235,13 @@ class c2c_AdminCommentersCommentsCount {
 			$comment_count = $pending_count = 0;
 		}
 
-		return array( (int) $comment_count, (int) $pending_count );
+		// Return value is array of comment count and pending count.
+		$return = array( (int) $comment_count, (int) $pending_count );
+
+		// Memoize the counts being returned.
+		self::$memoized[ $memoize_key ] = $return;
+
+		return $return;
 	}
 
 	/**
@@ -243,7 +282,7 @@ class c2c_AdminCommentersCommentsCount {
 		if ( 'comment' == $type ) {
 			$author_email = $comment->comment_author_email;
 			$author_name  = $comment->comment_author;
-			if ( empty( $author_email ) ) {
+			if ( ! $author_email ) {
 				$field = 'comment_author';
 				$value = $author_name;
 			} else {
@@ -251,7 +290,7 @@ class c2c_AdminCommentersCommentsCount {
 				$value = $author_email;
 			}
 			list( $comment_count, $pending_count ) = self::get_comments_count( $field, $value, $type );
-			$msg = sprintf( _n( '%d comment', '%d comments', $comment_count ), $comment_count );
+			$msg = sprintf( _n( '%d comment', '%d comments', $comment_count, 'admin-commenters-comments-count' ), $comment_count );
 		} elseif ( 'pingback' == $type || 'trackback' == $type ) {
 			$author_url = $comment->comment_author_url;
 			// Want to get the root domain and not use the exact pingback/trackback source link
@@ -261,13 +300,13 @@ class c2c_AdminCommentersCommentsCount {
 			$author_email = $author_url;
 			/* Translators: sorry, but I'm not supplying explicit translation strings for all possible other comment types.
 			   You can at least expect '%d trackback', '%d trackbacks', '%d pingback' and '%d pingbacks' */
-			$msg = sprintf( _n( '%d %s', '%d %ss', $comment_count ), $comment_count, $type );
+			$msg = sprintf( _n( '%d %s', '%d %ss', $comment_count, 'admin-commenters-comments-count' ), $comment_count, $type );
 		} else {
 			return $author_name;
 		}
 
 		if ( $pending_count ) {
-			$msg .= '; ' . sprintf( __( '%s pending' ), $pending_count );
+			$msg .= '; ' . sprintf( __( '%s pending', 'admin-commenters-comments-count' ), $pending_count );
 			$pclass = ' author-com-pending';
 		} else {
 			$pclass = '';
@@ -289,7 +328,10 @@ class c2c_AdminCommentersCommentsCount {
 				<span class='comment-count comment-count-approved'>$comment_count</span>
 				</a></span>";
 		} else { // WP 4.3+
-			$comment_str = sprintf( _n( '%s comment', '%s comments', $comment_count, 'admin-commenters-comments-count' ), number_format_i18n( $comment_count ) );
+			$comment_str = sprintf(
+				_n( '%s comment', '%s comments', $comment_count, 'admin-commenters-comments-count' ),
+				number_format_i18n( $comment_count )
+			);
 			$html .= "
 				<span class='column-response'>
 				<span class='post-com-count-wrapper post-and-author-com-count-wrapper'>
