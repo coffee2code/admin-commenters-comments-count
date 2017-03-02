@@ -84,6 +84,10 @@ Yes.
 
 == Changelog ==
 
+= () =
+* Change: Update unit test bootstrap
+    * Default `WP_TESTS_DIR` to `/tmp/wordpress-tests-lib` rather than erroring out if not defined via environment variable
+
 = 1.7 (2016-01-11) =
 * Bugfix: Fix bug preventing display of values for other custom columns in users table.
 * Add: Memoize commenter counts so they aren't re-queried more than once per page load.
