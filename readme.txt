@@ -5,7 +5,7 @@ Tags: commenters, comment count, comment author, comments, comment, admin, coffe
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.9
-Tested up to: 4.4
+Tested up to: 4.7
 Stable tag: 1.7
 
 Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
@@ -88,6 +88,7 @@ Yes.
 * Change: Update unit test bootstrap
     * Default `WP_TESTS_DIR` to `/tmp/wordpress-tests-lib` rather than erroring out if not defined via environment variable
     * Enable more error output for unit tests
+* Change: Note compatibility through WP 4.7+
 * Change: Update copyright date (2017)
 
 = 1.7 (2016-01-11) =
