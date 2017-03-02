@@ -321,25 +321,17 @@ class c2c_AdminCommentersCommentsCount {
 
 		$html = $is_dashboard ? '' : '</strong>';
 
-		if ( version_compare( $GLOBALS['wp_version'], '4.3', '<' ) ) { // Older than WP 4.3
-			$html .= "
-				<span class='post-com-count-wrapper post-and-author-com-count-wrapper'>
-				<a class='author-com-count post-com-count{$pclass}' href='" . esc_attr( $url ) . "' title='" . esc_attr( $msg ) . "'>
-				<span class='comment-count comment-count-approved'>$comment_count</span>
-				</a></span>";
-		} else { // WP 4.3+
-			$comment_str = sprintf(
-				_n( '%s comment', '%s comments', $comment_count, 'admin-commenters-comments-count' ),
-				number_format_i18n( $comment_count )
-			);
-			$html .= "
-				<span class='column-response'>
-				<span class='post-com-count-wrapper post-and-author-com-count-wrapper'>
-				<a href='" . esc_attr( $url ) . "' title='" . esc_attr( $msg ) . "' class='author-com-count post-com-count{$pclass} post-com-count-approved'>
-				<span class='comment-count-approved' aria-hidden='true'>$comment_count</span>
-				<span class='screen-reader-text'>$comment_str</span>
-				</a></span></span>";
-		}
+		$comment_str = sprintf(
+			_n( '%s comment', '%s comments', $comment_count, 'admin-commenters-comments-count' ),
+			number_format_i18n( $comment_count )
+		);
+		$html .= "
+			<span class='column-response'>
+			<span class='post-com-count-wrapper post-and-author-com-count-wrapper'>
+			<a href='" . esc_attr( $url ) . "' title='" . esc_attr( $msg ) . "' class='author-com-count post-com-count{$pclass} post-com-count-approved'>
+			<span class='comment-count-approved' aria-hidden='true'>$comment_count</span>
+			<span class='screen-reader-text'>$comment_str</span>
+			</a></span></span>";
 
 		$html .= $is_dashboard ? '' : '<strong>';
 		$html .= $author_name;

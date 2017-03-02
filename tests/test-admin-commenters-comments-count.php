@@ -38,20 +38,6 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 		return $comments;
 	}
 
-	private function expected_output_pre_43( $approved_count = 0, $pending_count = 0, $name = '', $email = '' ) {
-		$title = sprintf( _n( '%d comment', '%d comments', $approved_count ), $approved_count );
-		$class = '';
-		if ( $pending_count > 0 ) {
-			$title .= "; $pending_count pending";
-			$class = ' author-com-pending';
-		}
-		return "</strong>
-				<span class='post-com-count-wrapper post-and-author-com-count-wrapper'>
-				<a class='author-com-count post-com-count$class' href='http://example.org/wp-admin/edit-comments.php?s=" . esc_attr( urlencode( $email ) ) . "' title='" . esc_attr( $title ) . "'>
-				<span class='comment-count comment-count-approved'>$approved_count</span>
-				</a></span><strong>$name";
-	}
-
 	private function expected_output( $approved_count = 0, $pending_count = 0, $name = '', $email = '' ) {
 		$title = sprintf( _n( '%d comment', '%d comments', $approved_count ), $approved_count );
 		$class = '';
@@ -60,12 +46,12 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 			$class = ' author-com-pending';
 		}
 		return "</strong>
-				<span class='column-response'>
-				<span class='post-com-count-wrapper post-and-author-com-count-wrapper'>
-				<a href='http://example.org/wp-admin/edit-comments.php?s=" . esc_attr( urlencode( $email ) ) . "' title='" . esc_attr( $title ) . "' class='author-com-count post-com-count$class post-com-count-approved'>
-				<span class='comment-count-approved' aria-hidden='true'>$approved_count</span>
-				<span class='screen-reader-text'>$approved_count comments</span>
-				</a></span></span><strong>$name";
+			<span class='column-response'>
+			<span class='post-com-count-wrapper post-and-author-com-count-wrapper'>
+			<a href='http://example.org/wp-admin/edit-comments.php?s=" . esc_attr( urlencode( $email ) ) . "' title='" . esc_attr( $title ) . "' class='author-com-count post-com-count$class post-com-count-approved'>
+			<span class='comment-count-approved' aria-hidden='true'>$approved_count</span>
+			<span class='screen-reader-text'>$approved_count comments</span>
+			</a></span></span><strong>$name";
 	}
 
 	private function get_comment_author_output( $comment_id ) {
@@ -131,31 +117,6 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 		$this->assertTrue( is_admin() );
 	}
 
-	public function test_get_comment_author_link_affected_on_backend_pre_43() {
-		$current_version = $GLOBALS['wp_version'];
-		$GLOBALS['wp_version'] = '4.2';
-
-		$post_id = $this->factory->post->create();
-
-		$this->create_comments( $post_id, 5, 'alpha' );
-		$bravo_comments = $this->create_comments( $post_id, 2, 'bravo' );
-		$comment_id = $this->create_comments( $post_id, 1, 'alpha', array( 'comment_approved' => '0' ) );
-
-		$GLOBALS['comment'] = get_comment( $comment_id );
-
-		$expected_output = $this->expected_output_pre_43( 5, 1, 'Alpha User', 'alpha@example.org' );
-		$this->assertEquals( $expected_output, get_comment_author_link( $comment_id ) );
-		$this->assertEquals( $expected_output, c2c_AdminCommentersCommentsCount::get_comment_author_link( $comment_id ) );
-
-		$GLOBALS['comment'] = get_comment( $bravo_comments[0] );
-
-		$expected_output = $this->expected_output_pre_43( 2, 0, 'Bravo User', 'bravo@example.org' );
-		$this->assertEquals( $expected_output, get_comment_author_link( $comment_id ) );
-		$this->assertEquals( $expected_output, c2c_AdminCommentersCommentsCount::get_comment_author_link( $bravo_comments[0] ) );
-
-		$GLOBALS['wp_version'] = $current_version;
-	}
-
 	public function test_get_comment_author_link_affected_on_backend() {
 		$post_id = $this->factory->post->create();
 
@@ -174,29 +135,6 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 		$expected_output = $this->expected_output( 2, 0, 'Bravo User', 'bravo@example.org' );
 		$this->assertEquals( $expected_output, get_comment_author_link( $comment_id ) );
 		$this->assertEquals( $expected_output, c2c_AdminCommentersCommentsCount::get_comment_author_link( $bravo_comments[0] ) );
-	}
-
-	public function test_comment_author_link_affected_on_backend_pre_43() {
-		$current_version = $GLOBALS['wp_version'];
-		$GLOBALS['wp_version'] = '4.2';
-
-		$post_id = $this->factory->post->create();
-
-		$this->create_comments( $post_id, 5, 'alpha' );
-		$bravo_comments = $this->create_comments( $post_id, 2, 'bravo' );
-		$comment_id = $this->create_comments( $post_id, 1, 'alpha', array( 'comment_approved' => '0' ) );
-
-		$GLOBALS['comment'] = get_comment( $comment_id );
-
-		$this->assertEquals( $this->expected_output_pre_43( 5, 1, 'Alpha User', 'alpha@example.org' ), $this->get_comment_author_output( $comment_id ) );
-		$this->assertEquals( $this->expected_output_pre_43( 5, 1, 'Alpha User', 'alpha@example.org' ), c2c_AdminCommentersCommentsCount::comment_author( $comment_id ) );
-
-		$GLOBALS['comment'] = get_comment( $bravo_comments[0] );
-
-		$this->assertEquals( $this->expected_output_pre_43( 2, 0, 'Bravo User', 'bravo@example.org' ), $this->get_comment_author_output( $bravo_comments[0] ) );
-		$this->assertEquals( $this->expected_output_pre_43( 2, 0, 'Bravo User', 'bravo@example.org' ), c2c_AdminCommentersCommentsCount::comment_author( $bravo_comments[0] ) );
-
-		$GLOBALS['wp_version'] = $current_version;
 	}
 
 	public function test_comment_author_link_affected_on_backend() {
