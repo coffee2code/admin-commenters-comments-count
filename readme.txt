@@ -87,6 +87,7 @@ Yes.
 = () =
 * Change: Update unit test bootstrap
     * Default `WP_TESTS_DIR` to `/tmp/wordpress-tests-lib` rather than erroring out if not defined via environment variable
+    * Enable more error output for unit tests
 
 = 1.7 (2016-01-11) =
 * Bugfix: Fix bug preventing display of values for other custom columns in users table.
