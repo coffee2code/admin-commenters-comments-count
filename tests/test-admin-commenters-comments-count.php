@@ -40,18 +40,33 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 
 	private function expected_output( $approved_count = 0, $pending_count = 0, $name = '', $email = '' ) {
 		$title = sprintf( _n( '%d comment', '%d comments', $approved_count ), $approved_count );
-		$class = '';
-		if ( $pending_count > 0 ) {
-			$title .= "; $pending_count pending";
-			$class = ' author-com-pending';
-		}
-		return "</strong>
+
+		$ret = "</strong>
 			<span class='column-response'>
-			<span class='post-com-count-wrapper post-and-author-com-count-wrapper'>
-			<a href='http://example.org/wp-admin/edit-comments.php?s=" . esc_attr( urlencode( $email ) ) . "' title='" . esc_attr( $title ) . "' class='author-com-count post-com-count$class post-com-count-approved'>
+			<span class='post-com-count-wrapper post-and-author-com-count-wrapper author-com-count'>
+			<a href='http://example.org/wp-admin/edit-comments.php?s=" . esc_attr( urlencode( $email ) ) . "' title='" . esc_attr( $title ) . "' class='post-com-count post-com-count-approved'>
 			<span class='comment-count-approved' aria-hidden='true'>$approved_count</span>
 			<span class='screen-reader-text'>$approved_count comments</span>
-			</a></span></span><strong>$name";
+			</a>";
+
+		$pending_phrase = sprintf( _n( '%s pending comment', '%s pending comments', $pending_count ), number_format_i18n( $pending_count ) );
+		if ( $pending_count ) {
+			$ret .= sprintf(
+				'<a href="%s" class="post-com-count post-com-count-pending"><span class="comment-count-pending" aria-hidden="true">%s</span><span class="screen-reader-text">%s</span></a>',
+				'http://example.org/wp-admin/edit-comments.php?s=' . esc_attr( urlencode( $email ) ) . '&comment_status=moderated',
+				$pending_count,
+				$pending_phrase
+			);
+		} else {
+			$ret .= sprintf(
+				'<span class="post-com-count post-com-count-pending post-com-count-no-pending"><span class="comment-count comment-count-no-pending" aria-hidden="true">%s</span><span class="screen-reader-text">%s</span></span>',
+				$pending_count,
+				$approved_count ? __( 'No pending comments' ) : __( 'No comments' )
+			);
+		}
+		$ret .= "</span></span><strong>$name";
+
+		return $ret;
 	}
 
 	private function get_comment_author_output( $comment_id ) {

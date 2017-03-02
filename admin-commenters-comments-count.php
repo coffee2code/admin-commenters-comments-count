@@ -305,13 +305,6 @@ class c2c_AdminCommentersCommentsCount {
 			return $author_name;
 		}
 
-		if ( $pending_count ) {
-			$msg .= '; ' . sprintf( __( '%s pending', 'admin-commenters-comments-count' ), $pending_count );
-			$pclass = ' author-com-pending';
-		} else {
-			$pclass = '';
-		}
-
 		$url = ( $comment_count + $pending_count ) > 0 ? self::get_comments_url( $author_email ) : '#';
 
 		// If appearing on the dashboard, then don't need to break out of
@@ -327,11 +320,30 @@ class c2c_AdminCommentersCommentsCount {
 		);
 		$html .= "
 			<span class='column-response'>
-			<span class='post-com-count-wrapper post-and-author-com-count-wrapper'>
-			<a href='" . esc_attr( $url ) . "' title='" . esc_attr( $msg ) . "' class='author-com-count post-com-count{$pclass} post-com-count-approved'>
+			<span class='post-com-count-wrapper post-and-author-com-count-wrapper author-com-count'>
+			<a href='" . esc_attr( $url ) . "' title='" . esc_attr( $msg ) . "' class='post-com-count post-com-count-approved'>
 			<span class='comment-count-approved' aria-hidden='true'>$comment_count</span>
 			<span class='screen-reader-text'>$comment_str</span>
-			</a></span></span>";
+			</a>";
+
+		$pending_comments_number = number_format_i18n( $pending_count );
+		$pending_phrase = sprintf( _n( '%s pending comment', '%s pending comments', $pending_count ), $pending_comments_number );
+		if ( $pending_count ) {
+			$html .= sprintf(
+				'<a href="%s" class="post-com-count post-com-count-pending"><span class="comment-count-pending" aria-hidden="true">%s</span><span class="screen-reader-text">%s</span></a>',
+				add_query_arg( array( 'comment_status' => 'moderated' ), esc_url( $url ) ),
+				$pending_comments_number,
+				$pending_phrase
+			);
+		} else {
+			$html .= sprintf(
+				'<span class="post-com-count post-com-count-pending post-com-count-no-pending"><span class="comment-count comment-count-no-pending" aria-hidden="true">%s</span><span class="screen-reader-text">%s</span></span>',
+				$pending_comments_number,
+				$comment_count ? __( 'No pending comments' ) : __( 'No comments' )
+			);
+		}
+
+		$html .= "</span></span>";
 
 		$html .= $is_dashboard ? '' : '<strong>';
 		$html .= $author_name;
