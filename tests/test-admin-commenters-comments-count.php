@@ -40,10 +40,11 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 
 	private function expected_output( $approved_count = 0, $pending_count = 0, $name = '', $email = '' ) {
 		$title = sprintf( _n( '%d comment', '%d comments', $approved_count ), $approved_count );
+		$pending_class = $pending_count ? '' : ' author-com-count-no-pending';
 
 		$ret = "</strong>
 			<span class='column-response'>
-			<span class='post-com-count-wrapper post-and-author-com-count-wrapper author-com-count'>
+			<span class='post-com-count-wrapper post-and-author-com-count-wrapper author-com-count{$pending_class}'>
 			<a href='http://example.org/wp-admin/edit-comments.php?s=" . esc_attr( urlencode( $email ) ) . "' title='" . esc_attr( $title ) . "' class='post-com-count post-com-count-approved'>
 			<span class='comment-count-approved' aria-hidden='true'>$approved_count</span>
 			<span class='screen-reader-text'>$approved_count comments</span>

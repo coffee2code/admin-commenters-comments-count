@@ -4,12 +4,8 @@ h4.comment-meta {
 .author-com-count {
 	float: right;
 }
-#the-comment-list .author-com-count .post-com-count ~  .post-com-count-no-pending {
-	margin-right: 24px;
-	display: inherit;
-	background-color: transparent;
-	color: transparent;
-	font-size: 0;
+#the-comment-list .author-com-count-no-pending {
+	margin-right: 21px;
 }
 .column-commenters_count {
 	width: 74px;

@@ -318,9 +318,12 @@ class c2c_AdminCommentersCommentsCount {
 			_n( '%s comment', '%s comments', $comment_count, 'admin-commenters-comments-count' ),
 			number_format_i18n( $comment_count )
 		);
+
+		$pending_class = $pending_count ? '' : ' author-com-count-no-pending';
+
 		$html .= "
 			<span class='column-response'>
-			<span class='post-com-count-wrapper post-and-author-com-count-wrapper author-com-count'>
+			<span class='post-com-count-wrapper post-and-author-com-count-wrapper author-com-count{$pending_class}'>
 			<a href='" . esc_attr( $url ) . "' title='" . esc_attr( $msg ) . "' class='post-com-count post-com-count-approved'>
 			<span class='comment-count-approved' aria-hidden='true'>$comment_count</span>
 			<span class='screen-reader-text'>$comment_str</span>
