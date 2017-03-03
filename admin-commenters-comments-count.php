@@ -319,14 +319,38 @@ class c2c_AdminCommentersCommentsCount {
 			return $author_name;
 		}
 
-		$url = ( $comment_count + $pending_count ) > 0 ? self::get_comments_url( $author_email ) : '#';
-
 		// If appearing on the dashboard, then don't need to break out of
 		// pre-existing <strong> tags.
 		$screen = get_current_screen();
 		$is_dashboard = $screen && 'dashboard' == $screen->id;
 
 		$html = $is_dashboard ? '' : '</strong>';
+
+		$html .= self::get_comment_bubble( $author_email, $comment_count, $pending_count, $msg );
+
+		$html .= $is_dashboard ? '' : '<strong>';
+		$html .= $author_name;
+
+		return $html;
+	}
+
+	/**
+	 * Returns the markup for the comment bubble for the given email address with
+	 * with the provided counts.
+	 *
+	 * @since 1.8
+	 *
+	 * @param string $author_email  Comment author email address.
+	 * @param int    $comment_count The number of comments for the email address.
+	 * @param int    $pending_count The number of pending comments for the email address.
+	 * @param string $msg.          String to use as title attribute for comment bubble.
+	 *
+	 * @return string
+	 */
+	public static function get_comment_bubble( $author_email, $comment_count, $pending_count, $msg = '' ) {
+		$html = '';
+
+		$url = ( $comment_count + $pending_count ) > 0 ? self::get_comments_url( $author_email ) : '#';
 
 		$comment_str = sprintf(
 			_n( '%s comment', '%s comments', $comment_count, 'admin-commenters-comments-count' ),
@@ -366,9 +390,6 @@ class c2c_AdminCommentersCommentsCount {
 		}
 
 		$html .= "</span></span>";
-
-		$html .= $is_dashboard ? '' : '<strong>';
-		$html .= $author_name;
 
 		return $html;
 	}
