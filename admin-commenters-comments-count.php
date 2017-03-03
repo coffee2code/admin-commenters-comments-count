@@ -353,7 +353,7 @@ class c2c_AdminCommentersCommentsCount {
 		if ( $pending_count ) {
 			$html .= sprintf(
 				'<a href="%s" class="post-com-count post-com-count-pending"><span class="comment-count-pending" aria-hidden="true">%s</span><span class="screen-reader-text">%s</span></a>',
-				add_query_arg( array( 'comment_status' => 'moderated' ), esc_url( $url ) ),
+				esc_url( add_query_arg( array( 'comment_status' => 'moderated' ), $url ) ),
 				$pending_comments_number,
 				$pending_phrase
 			);

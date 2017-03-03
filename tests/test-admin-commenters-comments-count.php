@@ -52,7 +52,7 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 		if ( $pending_count ) {
 			$ret .= sprintf(
 '<a href="%s" class="post-com-count post-com-count-pending"><span class="comment-count-pending" aria-hidden="true">%s</span><span class="screen-reader-text">%s</span></a>',
-				'http://example.org/wp-admin/edit-comments.php?s=' . esc_attr( urlencode( $email ) ) . '&comment_status=moderated',
+				esc_url( 'http://example.org/wp-admin/edit-comments.php?s=' . urlencode( $email ) . '&comment_status=moderated' ),
 				$pending_count,
 				$pending_phrase
 			);
