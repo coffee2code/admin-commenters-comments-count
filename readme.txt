@@ -87,6 +87,7 @@ Yes.
 = () =
 * Change: Adopt WP core style of showing pending comments in a red circle superscript to comment icon
 * Change: Remove support for pre-WP 4.3 markup
+* Change: Use `sprintf()` to produce markup rather than concatenating various strings, function calls, and variables
 * Change: Update unit test bootstrap
     * Default `WP_TESTS_DIR` to `/tmp/wordpress-tests-lib` rather than erroring out if not defined via environment variable
     * Enable more error output for unit tests

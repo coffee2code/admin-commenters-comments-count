@@ -321,13 +321,18 @@ class c2c_AdminCommentersCommentsCount {
 
 		$pending_class = $pending_count ? '' : ' author-com-count-no-pending';
 
-		$html .= "
-			<span class='column-response'>
-			<span class='post-com-count-wrapper post-and-author-com-count-wrapper author-com-count{$pending_class}'>
-			<a href='" . esc_attr( $url ) . "' title='" . esc_attr( $msg ) . "' class='post-com-count post-com-count-approved'>
-			<span class='comment-count-approved' aria-hidden='true'>$comment_count</span>
-			<span class='screen-reader-text'>$comment_str</span>
-			</a>";
+		$html .= "<span class='column-response'><span class='post-com-count-wrapper post-and-author-com-count-wrapper author-com-count{$pending_class}'>\n";
+
+		$html .= sprintf(
+			'<a href="%s" title="%s" class="post-com-count post-com-count-approved">
+				<span class="comment-count-approved" aria-hidden="true">%s</span>
+				<span class="screen-reader-text">%s</span>
+			</a>',
+			esc_attr( $url ),
+			esc_attr( $msg ),
+			$comment_count,
+			$comment_str
+		);
 
 		$pending_comments_number = number_format_i18n( $pending_count );
 		$pending_phrase = sprintf( _n( '%s pending comment', '%s pending comments', $pending_count, 'admin-commenters-comments-count' ), $pending_comments_number );
