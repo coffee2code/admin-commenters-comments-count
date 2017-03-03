@@ -330,7 +330,7 @@ class c2c_AdminCommentersCommentsCount {
 			</a>";
 
 		$pending_comments_number = number_format_i18n( $pending_count );
-		$pending_phrase = sprintf( _n( '%s pending comment', '%s pending comments', $pending_count ), $pending_comments_number );
+		$pending_phrase = sprintf( _n( '%s pending comment', '%s pending comments', $pending_count, 'admin-commenters-comments-count' ), $pending_comments_number );
 		if ( $pending_count ) {
 			$html .= sprintf(
 				'<a href="%s" class="post-com-count post-com-count-pending"><span class="comment-count-pending" aria-hidden="true">%s</span><span class="screen-reader-text">%s</span></a>',
@@ -342,7 +342,7 @@ class c2c_AdminCommentersCommentsCount {
 			$html .= sprintf(
 				'<span class="post-com-count post-com-count-pending post-com-count-no-pending"><span class="comment-count comment-count-no-pending" aria-hidden="true">%s</span><span class="screen-reader-text">%s</span></span>',
 				$pending_comments_number,
-				$comment_count ? __( 'No pending comments' ) : __( 'No comments' )
+				$comment_count ? __( 'No pending comments', 'admin-commenters-comments-count' ) : __( 'No comments', 'admin-commenters-comments-count' )
 			);
 		}
 
