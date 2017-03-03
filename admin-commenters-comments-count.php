@@ -85,6 +85,20 @@ class c2c_AdminCommentersCommentsCount {
 	private static $memoized    = array();
 
 	/**
+	 * Prevent instantiation.
+	 *
+	 * @since 1.8
+	 */
+	private function __construct() {}
+
+	/**
+	 * Prevent unserializing an instance.
+	 *
+	 * @since 1.8
+	 */
+	private function __wakeup() {}
+
+	/**
 	 * Returns version of the plugin.
 	 *
 	 * @since 1.1.4
