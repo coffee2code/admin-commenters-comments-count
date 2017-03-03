@@ -94,6 +94,7 @@ Yes.
 * Change: Note compatibility through WP 4.7+
 * Change: Remove support for WordPress older than 4.6 (should still work for earlier versions back to WP 4.3)
 * Change: Update copyright date (2017)
+* Change: Update screenshots
 * New: Add LICENSE file
 
 = 1.7 (2016-01-11) =
