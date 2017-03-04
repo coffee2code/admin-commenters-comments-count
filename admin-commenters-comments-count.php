@@ -251,7 +251,7 @@ class c2c_AdminCommentersCommentsCount {
 	 * @return string
 	 */
 	public static function get_comments_url( $email ) {
-		return admin_url( 'edit-comments.php?s=' . urlencode( $email ) );
+		return add_query_arg( 's', urlencode( $email ), admin_url( 'edit-comments.php' ) );
 	}
 
 	/**
@@ -370,7 +370,7 @@ class c2c_AdminCommentersCommentsCount {
 		if ( $pending_count ) {
 			$html .= sprintf(
 				'<a href="%s" class="post-com-count post-com-count-pending"><span class="comment-count-pending" aria-hidden="true">%s</span><span class="screen-reader-text">%s</span></a>',
-				esc_url( add_query_arg( array( 'comment_status' => 'moderated' ), $url ) ),
+				esc_url( add_query_arg( 'comment_status', 'moderated', $url ) ),
 				$pending_comments_number,
 				$pending_phrase
 			);
