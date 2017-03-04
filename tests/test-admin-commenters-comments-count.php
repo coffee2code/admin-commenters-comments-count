@@ -53,7 +53,7 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 			: "http://example.org/wp-admin/edit-comments.php?s=" . esc_attr( urlencode( $email ) );
 
 		$ret .= sprintf(
-			'<span class=\'column-response\'><span class=\'post-com-count-wrapper post-and-author-com-count-wrapper author-com-count%s\'>
+			'<span class="column-response"><span class="post-com-count-wrapper post-and-author-com-count-wrapper author-com-count%s">
 <a href="%s" title="%s" class="post-com-count post-com-count-approved">
 				<span class="comment-count-approved" aria-hidden="true">%s</span>
 				<span class="screen-reader-text">%s comments</span>

@@ -352,7 +352,7 @@ class c2c_AdminCommentersCommentsCount {
 			);
 		}
 
-		$html .= "<span class='column-response'><span class='post-com-count-wrapper post-and-author-com-count-wrapper author-com-count{$pending_class}'>\n";
+		$html .= '<span class="column-response"><span class="post-com-count-wrapper post-and-author-com-count-wrapper author-com-count' . $pending_class . "\">\n";
 
 		$html .= sprintf(
 			'<a href="%s" title="%s" class="post-com-count post-com-count-approved">
