@@ -145,6 +145,10 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 		$this->assertTrue( is_admin() );
 	}
 
+	/*
+	 * get_comment_author_link()
+	 */
+
 	public function test_get_comment_author_link_affected_on_backend() {
 		$post_id = $this->factory->post->create();
 
@@ -165,6 +169,10 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 		$this->assertEquals( $expected_output, c2c_AdminCommentersCommentsCount::get_comment_author_link( $bravo_comments[0] ) );
 	}
 
+	/*
+	 * comment_author()
+	 */
+
 	public function test_comment_author_link_affected_on_backend() {
 		$post_id = $this->factory->post->create();
 
@@ -182,6 +190,10 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 		$this->assertEquals( $this->expected_output( 2, 0, 'Bravo User', 'bravo@example.org' ), $this->get_comment_author_output( $bravo_comments[0] ) );
 		$this->assertEquals( $this->expected_output( 2, 0, 'Bravo User', 'bravo@example.org' ), c2c_AdminCommentersCommentsCount::comment_author( $bravo_comments[0] ) );
 	}
+
+	/*
+	 * get_comments_count()
+	 */
 
 	public function test_get_comments_count_by_comment_author_email() {
 		$post_id = $this->factory->post->create();
@@ -213,6 +225,10 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 		$this->assertEquals( array( 0, 0 ), c2c_AdminCommentersCommentsCount::get_comments_count( 'comment_author_email', 'alpha@example.org' ) );
 		$this->assertEquals( array( 0, 0 ), c2c_AdminCommentersCommentsCount::get_comments_count( 'comment_author', 'alpha' ) );
 	}
+
+	/*
+	 * get_comments_url()
+	 */
 
 	public function test_get_comments_url() {
 		$this->assertEquals(
