@@ -38,12 +38,22 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 		return $comments;
 	}
 
-	private function expected_output( $approved_count = 0, $pending_count = 0, $name = '', $email = '' ) {
+	private function expected_output( $approved_count = 0, $pending_count = 0, $name = '', $email = '', $is_dashboard = false, $no_comments_bubble = true ) {
 		$title = sprintf( _n( '%d comment', '%d comments', $approved_count ), $approved_count );
 		$pending_class = $pending_count ? '' : ' author-com-count-no-pending';
 
-		$ret = "</strong><span class='column-response'><span class='post-com-count-wrapper post-and-author-com-count-wrapper author-com-count{$pending_class}'>
-<a href=\"http://example.org/wp-admin/edit-comments.php?s=" . esc_attr( urlencode( $email ) ) . "\" title=\"" . esc_attr( $title ) . "\" class=\"post-com-count post-com-count-approved\">
+		if ( ! $no_comments_bubble && ! $approved_count && ! $pending_count ) {
+			return '<span aria-hidden="true">—</span><span class="screen-reader-text">No comments</span>';
+		}
+
+		$ret = $is_dashboard ? '' : '</strong>';
+
+		$url = ( ! $approved_count && ! $pending_count )
+			? '#'
+			: "http://example.org/wp-admin/edit-comments.php?s=" . esc_attr( urlencode( $email ) );
+
+		$ret .= "<span class='column-response'><span class='post-com-count-wrapper post-and-author-com-count-wrapper author-com-count{$pending_class}'>
+<a href=\"$url\" title=\"" . esc_attr( $title ) . "\" class=\"post-com-count post-com-count-approved\">
 				<span class=\"comment-count-approved\" aria-hidden=\"true\">$approved_count</span>
 				<span class=\"screen-reader-text\">$approved_count comments</span>
 			</a>";
@@ -63,7 +73,11 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 				$approved_count ? __( 'No pending comments' ) : __( 'No comments' )
 			);
 		}
-		$ret .= "</span></span><strong>$name";
+		$ret .= "</span></span>";
+
+		$ret .= $is_dashboard ? '' : '<strong>';
+
+		$ret .= $name;
 
 		return $ret;
 	}
@@ -204,6 +218,31 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 		$this->assertEquals(
 			'http://example.org/wp-admin/edit-comments.php?s=' . urlencode( 'test@example.com' ),
 			c2c_AdminCommentersCommentsCount::get_comments_url( 'test@example.com' )
+		);
+	}
+
+	/*
+	 * get_comments_url()
+	 */
+
+	public function test_get_comment_bubble() {
+		$this->assertEquals(
+			$this->expected_output( 10, 3, '', 'test@example.com', true ),
+			c2c_AdminCommentersCommentsCount::get_comment_bubble( 'test@example.com', 10, 3, '10 comments' )
+		);
+	}
+
+	public function test_get_comment_bubble_when_no_comments_and_true_no_comments_bubble() {
+		$this->assertEquals(
+			$this->expected_output( 0, 0, '', 'test@example.com', true, false ),
+			c2c_AdminCommentersCommentsCount::get_comment_bubble( 'test@example.com', 0, 0, '', false )
+		);
+	}
+
+	public function test_get_comment_bubble_when_no_comments_and_false_no_comments_bubble() {
+		$this->assertEquals(
+			$this->expected_output( 0, 0, '', 'test@example.com', true, true ),
+			c2c_AdminCommentersCommentsCount::get_comment_bubble( 'test@example.com', 0, 0, '0 comments', true )
 		);
 	}
 }

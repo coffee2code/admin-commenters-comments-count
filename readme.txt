@@ -86,6 +86,7 @@ Yes.
 
 = () =
 * Change: Adopt WP core style of showing pending comments in a red circle superscript to comment icon
+* Change: Show comment bubble in "Comments" column of user listings instead of plain integer
 * Change: Extract comment bubble markup generation from `comment_author()` into new `get_comment_bubble()`
 * Change: Remove support for pre-WP 4.3 markup
 * Change: Prevent object instantiation of the class

@@ -11,3 +11,6 @@ h4.comment-meta {
 	width: 74px;
 	text-align: center;
 }
+.column-commenters_count .author-com-count.author-com-count-no-pending {
+	float: none;
+}

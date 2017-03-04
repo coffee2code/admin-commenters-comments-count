@@ -182,29 +182,11 @@ class c2c_AdminCommentersCommentsCount {
 
 		$user = get_user_by( 'id', $user_id );
 
-		list( $comment_count, $pending_count )  = self::get_comments_count( 'comment_author_email', $user->user_email, 'comment', $user->ID );
+		list( $comment_count, $pending_count ) = self::get_comments_count( 'comment_author_email', $user->user_email, 'comment', $user->ID );
 
-		$show_link = ( $comment_count + $pending_count ) > 0;
+		$msg = sprintf( _n( '%d comment', '%d comments', $comment_count, 'admin-commenters-comments-count' ), $comment_count );
 
-		$ret = '';
-
-		if ( $show_link ) {
-			$msg = sprintf( _n( '%d comment', '%d comments', $comment_count, 'admin-commenters-comments-count' ), $comment_count );
-
-			if ( $pending_count ) {
-				$msg .= '; ' . sprintf( __( '%s pending', 'admin-commenters-comments-count' ), $pending_count );
-			}
-
-			$ret .= "<a href='" . esc_attr( self::get_comments_url( $user->user_email ) ) . "' title='" . esc_attr( $msg ) . "'>";
-		}
-
-		$ret .= $comment_count;
-
-		if ( $show_link ) {
-			$ret .= '</a>';
-		}
-
-		return $ret;
+		return self::get_comment_bubble( $user->user_email, $comment_count, $pending_count, $msg, false );
 	}
 
 	/**
@@ -340,14 +322,19 @@ class c2c_AdminCommentersCommentsCount {
 	 *
 	 * @since 1.8
 	 *
-	 * @param string $author_email  Comment author email address.
-	 * @param int    $comment_count The number of comments for the email address.
-	 * @param int    $pending_count The number of pending comments for the email address.
-	 * @param string $msg.          String to use as title attribute for comment bubble.
+	 * @param string $author_email       Comment author email address.
+	 * @param int    $comment_count      The number of comments for the email
+	 *                                   address.
+	 * @param int    $pending_count      The number of pending comments for the
+	 *                                   email address.
+	 * @param string $msg.               String to use as title attribute for
+	 *                                   comment bubble.
+	 * @param bool.  $no_comments_bubble Should the comment bubble be shown if the
+	 *                                   email address has no comments?
 	 *
 	 * @return string
 	 */
-	public static function get_comment_bubble( $author_email, $comment_count, $pending_count, $msg = '' ) {
+	public static function get_comment_bubble( $author_email, $comment_count, $pending_count, $msg = '', $no_comments_bubble = true ) {
 		$html = '';
 
 		$url = ( $comment_count + $pending_count ) > 0 ? self::get_comments_url( $author_email ) : '#';
@@ -358,6 +345,12 @@ class c2c_AdminCommentersCommentsCount {
 		);
 
 		$pending_class = $pending_count ? '' : ' author-com-count-no-pending';
+
+		if ( ! $no_comments_bubble && ! $comment_count && ! $pending_count ) {
+			return sprintf( '<span aria-hidden="true">—</span><span class="screen-reader-text">%s</span>',
+				__( 'No comments', 'admin-commenters-comments-count' )
+			);
+		}
 
 		$html .= "<span class='column-response'><span class='post-com-count-wrapper post-and-author-com-count-wrapper author-com-count{$pending_class}'>\n";
 
