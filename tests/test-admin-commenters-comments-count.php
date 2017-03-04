@@ -52,11 +52,18 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 			? '#'
 			: "http://example.org/wp-admin/edit-comments.php?s=" . esc_attr( urlencode( $email ) );
 
-		$ret .= "<span class='column-response'><span class='post-com-count-wrapper post-and-author-com-count-wrapper author-com-count{$pending_class}'>
-<a href=\"$url\" title=\"" . esc_attr( $title ) . "\" class=\"post-com-count post-com-count-approved\">
-				<span class=\"comment-count-approved\" aria-hidden=\"true\">$approved_count</span>
-				<span class=\"screen-reader-text\">$approved_count comments</span>
-			</a>";
+		$ret .= sprintf(
+			'<span class=\'column-response\'><span class=\'post-com-count-wrapper post-and-author-com-count-wrapper author-com-count%s\'>
+<a href="%s" title="%s" class="post-com-count post-com-count-approved">
+				<span class="comment-count-approved" aria-hidden="true">%s</span>
+				<span class="screen-reader-text">%s comments</span>
+			</a>',
+			$pending_class,
+			esc_url( $url ),
+			esc_attr( $title ),
+			$approved_count,
+			$approved_count
+		);
 
 		$pending_phrase = sprintf( _n( '%s pending comment', '%s pending comments', $pending_count ), number_format_i18n( $pending_count ) );
 		if ( $pending_count ) {
