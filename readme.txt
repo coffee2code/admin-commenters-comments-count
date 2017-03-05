@@ -13,18 +13,16 @@ Displays a count of each commenter's total number of comments (linked to those c
 
 == Description ==
 
-Next to all appearances of each commenter's name in the admin, this plugin shows a count of their total number of comments, linked to a listing of those comments.
+Next to all appearances of each commenter's name in the admin, this plugin shows a comments bubble identical to the one shown for posts in the admin listing of posts. The comments bubble shows the number of approved comments for that person and potentially a red superscript circle indicating the number of pending comments for the person (assuming they have any). The comment counts are linked to listings of comments associated solely with that particular commenter.
 
-By default in WordPress, it is not possible to tell via a single glance whether a particular commenter has commented before, and if so, how many times.
+By default in WordPress, it is not possible to tell via a single glance whether a particular commenter has commented before or how many times the've commented.
 
-This plugin adds a handy feature to the WordPress admin pages to allow you to:
+This plugin adds this handy capability to the WordPress admin pages that allows you to:
 
 * Quickly identify a first-time commenter
 * Quickly identify unfamiliar commenters that have in fact commented before
 * Quickly see how many total comments a particular commenter has made, and how many comments are pending
-* Easily go to a listing of all comments by a commenter, in order to see what and when they last commented, or what/when they first commented
-
-This plugin adds a linked comment count next to every appearance of a commenter in the admin. The link takes you to the admin page listing all comments for that particular commenter. The count displays all approved comments attributed to that commenter. If you hover over the comment count, the hover text indicates how many pending comments they also have, if any.
+* Easily navigate to a listing of all approved comments and all moderated comments by a commenter, in order to see what post and when they last commented (or first commented), get a feel for the nature of their comments, or find something they've said in the past
 
 Specifically, the linked comment count appears next to commenters in:
 
@@ -41,8 +39,8 @@ Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/admin-commenters-comm
 
 == Installation ==
 
-1. Unzip `admin-commenters-comments-count.zip` inside the `/wp-content/plugins/` directory for your site (or install via the built-in WordPress plugin installer)
-1. Activate the plugin through the 'Plugins' admin menu in WordPress
+1. Install via the built-in WordPress plugin installer. Or download and unzip `admin-commenters-comments-count.zip` inside the plugins directory for your site (typically `wp-content/plugins/`)
+2. Activate the plugin through the 'Plugins' admin menu in WordPress
 
 
 == Frequently Asked Questions ==
@@ -51,10 +49,10 @@ Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/admin-commenters-comm
 
 There are many reasons, some of which might include:
 
-* Quickly identifying a first-time commenter
-* Quickly identifying unfamiliar commenters that have in fact commented before
-* Quickly seeing how many total comments a particular commenter has made, and how many comments are pending
-* Easily going to a listing of all comments by a commenter, in order to see what and when they last commented, or what/when they first commented
+* Quickly identify a first-time commenter
+* Quickly identify unfamiliar commenters that have in fact commented before
+* Quickly see how many total comments a particular commenter has made, and how many comments are pending
+* Easily navigate to a listing of all approved comments and all moderated comments by a commenter, in order to see what post and when they last commented (or first commented), get a feel for the nature of their comments, or find something they've said in the past
 
 = How does the plugin know about all of the comments someone made to the site? =
 
@@ -75,20 +73,20 @@ Yes.
 
 == Screenshots ==
 
-1. A screenshot of the 'Comments' admin page with the comment count appearing next to the commenter's name. The most recent comment is from someone who has not commented on the site before. The second comment is from someone who has commented 13 times before. The hover text on the comment bubble reveals there are currently 13 approved comments and 3 pending comments for the visitor.
+1. A screenshot of the 'Comments' admin page with the comment count appearing next to the commenter's name. The most recent comment is from someone who has one approved commented on the site. The second comment is from someone who hasn't commented on the site before and has one comment in moderation. The third comment is from someone who has commented 12 times before and has 3 additional comments in moderation.
 2. A screenshot of the 'Comments on POST TITLE' admin page with the comment count appearing next to the commenter's name.
 3. A screenshot of the 'Activity' admin dashboard widget with the comment count appearing next to the commenter's name.
 4. A screenshot of the 'Comments' metabox on the 'Edit Post' admin page with the comment count appearing next to the commenter's name.
-5. A screenshot of the 'Comments' column added to the admin user listing with the linked count of each user's comments.
+5. A screenshot of the 'Comments' column added to the admin users listing.
 
 
 == Changelog ==
 
 = () =
-* Change: Adopt WP core style of showing pending comments in a red circle superscript to comment icon
-* Change: Show comment bubble in "Comments" column of user listings instead of plain integer
-* Change: Don't link comment bubble when there are zero comments since approved and pending comments are available as separate links
-* Change: Extract comment bubble markup generation from `comment_author()` into new `get_comments_bubble()`
+* Change: Adopt WP core style of showing pending comments in a red circle superscript to comments bubble icon
+* Change: Show comments bubble in "Comments" column of user listings instead of plain integer
+* Change: Don't link comments bubble when there are zero comments since approved and pending comments are available as separate links
+* Change: Extract comments bubble markup generation from `comment_author()` into new `get_comments_bubble()`
 * Change: Remove support for pre-WP 4.3 markup
 * Change: Prevent object instantiation of the class
 * Change: Use `sprintf()` to produce markup rather than concatenating various strings, function calls, and variables
@@ -97,6 +95,7 @@ Yes.
     * Enable more error output for unit tests
 * Change: Note compatibility through WP 4.7+
 * Change: Remove support for WordPress older than 4.6 (should still work for earlier versions back to WP 4.3)
+* Change: Update readme.txt content and formatting
 * Change: Update copyright date (2017)
 * Change: Update screenshots
 * New: Add LICENSE file
