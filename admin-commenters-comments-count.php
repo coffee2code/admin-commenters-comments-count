@@ -186,7 +186,7 @@ class c2c_AdminCommentersCommentsCount {
 
 		$msg = sprintf( _n( '%d comment', '%d comments', $comment_count, 'admin-commenters-comments-count' ), $comment_count );
 
-		return self::get_comment_bubble( $user->user_email, $comment_count, $pending_count, $msg, false );
+		return self::get_comments_bubble( $user->user_email, $comment_count, $pending_count, $msg, false );
 	}
 
 	/**
@@ -308,7 +308,7 @@ class c2c_AdminCommentersCommentsCount {
 
 		$html = $is_dashboard ? '' : '</strong>';
 
-		$html .= self::get_comment_bubble( $author_email, $comment_count, $pending_count, $msg );
+		$html .= self::get_comments_bubble( $author_email, $comment_count, $pending_count, $msg );
 
 		$html .= $is_dashboard ? '' : '<strong>';
 		$html .= $author_name;
@@ -317,7 +317,7 @@ class c2c_AdminCommentersCommentsCount {
 	}
 
 	/**
-	 * Returns the markup for the comment bubble for the given email address with
+	 * Returns the markup for the comments bubble for the given email address with
 	 * with the provided counts.
 	 *
 	 * @since 1.8
@@ -334,7 +334,7 @@ class c2c_AdminCommentersCommentsCount {
 	 *
 	 * @return string
 	 */
-	public static function get_comment_bubble( $author_email, $comment_count, $pending_count, $msg = '', $no_comments_bubble = true ) {
+	public static function get_comments_bubble( $author_email, $comment_count, $pending_count, $msg = '', $no_comments_bubble = true ) {
 		$html = '';
 
 		$url = ( $comment_count + $pending_count ) > 0 ? self::get_comments_url( $author_email ) : '#';

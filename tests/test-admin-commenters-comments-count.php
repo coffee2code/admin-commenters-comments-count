@@ -259,24 +259,24 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 	 * get_comments_url()
 	 */
 
-	public function test_get_comment_bubble() {
+	public function test_get_comments_bubble() {
 		$this->assertEquals(
 			$this->expected_output( 10, 3, '', 'test@example.com', true ),
-			c2c_AdminCommentersCommentsCount::get_comment_bubble( 'test@example.com', 10, 3, '10 comments' )
+			c2c_AdminCommentersCommentsCount::get_comments_bubble( 'test@example.com', 10, 3, '10 comments' )
 		);
 	}
 
-	public function test_get_comment_bubble_when_no_comments_and_true_no_comments_bubble() {
+	public function test_get_comments_bubble_when_no_comments_and_true_no_comments_bubble() {
 		$this->assertEquals(
 			$this->expected_output( 0, 0, '', 'test@example.com', true, false ),
-			c2c_AdminCommentersCommentsCount::get_comment_bubble( 'test@example.com', 0, 0, '', false )
+			c2c_AdminCommentersCommentsCount::get_comments_bubble( 'test@example.com', 0, 0, '', false )
 		);
 	}
 
-	public function test_get_comment_bubble_when_no_comments_and_false_no_comments_bubble() {
+	public function test_get_comments_bubble_when_no_comments_and_false_no_comments_bubble() {
 		$this->assertEquals(
 			$this->expected_output( 0, 0, '', 'test@example.com', true, true ),
-			c2c_AdminCommentersCommentsCount::get_comment_bubble( 'test@example.com', 0, 0, '0 comments', true )
+			c2c_AdminCommentersCommentsCount::get_comments_bubble( 'test@example.com', 0, 0, '0 comments', true )
 		);
 	}
 }
