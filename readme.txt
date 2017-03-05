@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.6
 Tested up to: 4.7
-Stable tag: 1.7
+Stable tag: 1.8
 
 Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
 
@@ -82,7 +82,7 @@ Yes.
 
 == Changelog ==
 
-= () =
+= 1.8 (2017-03-04) =
 * Change: Adopt WP core style of showing pending comments in a red circle superscript to comments bubble icon
 * Change: Show comments bubble in "Comments" column of user listings instead of plain integer
 * Change: Don't link comments bubble when there are zero comments since approved and pending comments are available as separate links
@@ -226,6 +226,9 @@ Yes.
 
 
 == Upgrade Notice ==
+
+= 1.8 =
+Recommended update: adopted WP comments bubble red circle superscript to display pending comments count, shown comments bubble in users listing, noted compatibility through WP 4.7+, dropped compatibility with WP older than 4.6, more
 
 = 1.7 =
 Recommended update: bugfix for causing blank custom user columns, adjustments to utilize language packs, minor unit test tweaks, noted compatibility through WP 4.4+, and updated copyright date

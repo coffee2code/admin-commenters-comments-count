@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Admin Commenters Comments Count
- * Version:     1.7
+ * Version:     1.8
  * Plugin URI:  http://coffee2code.com/wp-plugins/admin-commenters-comments-count/
  * Author:      Scott Reilly
  * Author URI:  http://coffee2code.com/
@@ -18,7 +18,7 @@
  *
  * @package Admin_Commenters_Comments_Count
  * @author  Scott Reilly
- * @version 1.7
+ * @version 1.8
  */
 
 /*
@@ -104,7 +104,7 @@ class c2c_AdminCommentersCommentsCount {
 	 * @since 1.1.4
 	 */
 	public static function version() {
-		return '1.7';
+		return '1.8';
 	}
 
 	/**
