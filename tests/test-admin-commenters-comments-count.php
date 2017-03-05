@@ -50,20 +50,31 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 
 		$url = ( ! $approved_count && ! $pending_count )
 			? '#'
-			: "http://example.org/wp-admin/edit-comments.php?s=" . esc_attr( urlencode( $email ) );
+			: add_query_arg( 's', urlencode( $email), 'http://example.org/wp-admin/edit-comments.php' );
 
-		$ret .= sprintf(
-			'<span class="column-response"><span class="post-com-count-wrapper post-and-author-com-count-wrapper author-com-count%s">
-<a href="%s" title="%s" class="post-com-count post-com-count-approved">
-				<span class="comment-count-approved" aria-hidden="true">%s</span>
-				<span class="screen-reader-text">%s comments</span>
-			</a>',
-			$pending_class,
-			esc_url( $url ),
-			esc_attr( $title ),
-			$approved_count,
-			$approved_count
-		);
+		$ret .= '<span class="column-response"><span class="post-com-count-wrapper post-and-author-com-count-wrapper author-com-count' . $pending_class . '">' . "\n";
+
+		$comments_number = number_format_i18n( $approved_count );
+
+		if ( $approved_count )  {
+			$ret .= sprintf(
+				'<a href="%s" title="%s" class="post-com-count post-com-count-approved">
+					<span class="comment-count-approved" aria-hidden="true">%s</span>
+					<span class="screen-reader-text">%s comments</span>
+				</a>',
+				esc_url( add_query_arg( 'comment_status', 'approved', $url ) ),
+				esc_attr( $title ),
+				$comments_number,
+				$approved_count
+			);
+		} else {
+			$ret .= sprintf(
+				'<span class="post-com-count post-com-count-no-comments" title="%s"><span class="comment-count comment-count-no-comments" aria-hidden="true">%s</span><span class="screen-reader-text">%s</span></span>',
+				esc_attr( $title ),
+				$comments_number,
+				$pending_count ? __( 'No approved comments', 'admin-commenters-comments-count' ) : __( 'No comments', 'admin-commenters-comments-count' )
+			);
+		}
 
 		$pending_phrase = sprintf( _n( '%s pending comment', '%s pending comments', $pending_count ), number_format_i18n( $pending_count ) );
 		if ( $pending_count ) {

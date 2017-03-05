@@ -354,16 +354,27 @@ class c2c_AdminCommentersCommentsCount {
 
 		$html .= '<span class="column-response"><span class="post-com-count-wrapper post-and-author-com-count-wrapper author-com-count' . $pending_class . "\">\n";
 
-		$html .= sprintf(
-			'<a href="%s" title="%s" class="post-com-count post-com-count-approved">
-				<span class="comment-count-approved" aria-hidden="true">%s</span>
-				<span class="screen-reader-text">%s</span>
-			</a>',
-			esc_attr( $url ),
-			esc_attr( $msg ),
-			$comment_count,
-			$comment_str
-		);
+		$comments_number = number_format_i18n( $comment_count );
+
+		if ( $comment_count ) {
+			$html .= sprintf(
+				'<a href="%s" title="%s" class="post-com-count post-com-count-approved">
+					<span class="comment-count-approved" aria-hidden="true">%s</span>
+					<span class="screen-reader-text">%s</span>
+				</a>',
+				esc_url( add_query_arg( 'comment_status', 'approved', $url ) ),
+				esc_attr( $msg ),
+				$comments_number,
+				$comment_str
+			);
+		} else {
+			$html .= sprintf(
+				'<span class="post-com-count post-com-count-no-comments" title="%s"><span class="comment-count comment-count-no-comments" aria-hidden="true">%s</span><span class="screen-reader-text">%s</span></span>',
+				esc_attr( $msg ),
+				$comments_number,
+				$pending_count ? __( 'No approved comments', 'admin-commenters-comments-count' ) : __( 'No comments', 'admin-commenters-comments-count' )
+			);
+		}
 
 		$pending_comments_number = number_format_i18n( $pending_count );
 		$pending_phrase = sprintf( _n( '%s pending comment', '%s pending comments', $pending_count, 'admin-commenters-comments-count' ), $pending_comments_number );
