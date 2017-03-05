@@ -14,3 +14,11 @@ h4.comment-meta {
 .column-commenters_count .author-com-count.author-com-count-no-pending {
 	float: none;
 }
+@media screen and (max-width: 782px) {
+	.wp-list-table.users .author-com-count {
+		float: none;
+	}
+	.wp-list-table.users .column-commenters_count {
+		text-align: left;
+	}
+}
