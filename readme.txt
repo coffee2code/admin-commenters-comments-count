@@ -82,6 +82,9 @@ Yes.
 
 == Changelog ==
 
+= 1.9 () =
+* Bugfix: Explicitly set comment count font color to avoid style conflict with Akismet that resulted in gray text on dark gray background
+
 = 1.8.1 (2017-11-04) =
 * Change: Note compatibility through WP 4.9+
 * Change: Update copyright date (2018)
