@@ -83,6 +83,7 @@ Yes.
 == Changelog ==
 
 = () =
+* Change: Update copyright date (2018)
 * Change: Minor whitespace tweaks in unit test bootstrap
 
 = 1.8 (2017-03-04) =
