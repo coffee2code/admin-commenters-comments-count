@@ -152,8 +152,7 @@ class c2c_AdminCommentersCommentsCount {
 	 * @since 1.3
 	 */
 	public static function enqueue_admin_css() {
-		wp_register_style( __CLASS__ . '_admin', plugins_url( 'assets/admin.css', __FILE__ ) );
-		wp_enqueue_style( __CLASS__ . '_admin', false, array(), self::version() );
+		wp_enqueue_style( __CLASS__ . '_admin', plugins_url( 'assets/admin.css', __FILE__ ), array(), self::version() );
 	}
 
 	/**

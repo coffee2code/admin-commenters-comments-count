@@ -85,6 +85,7 @@ Yes.
 = 1.9 () =
 * Bugfix: Explicitly set comment count font color to avoid style conflict with Akismet that resulted in gray text on dark gray background
 * Bugfix: Disable Akismet's version of the functionality since it is duplicative and interferes with author section layout
+* Change: Omit unnecessary `wp_register_style()` and instead provide all arguments to `wp_enqueue_style()`
 
 = 1.8.1 (2017-11-04) =
 * Change: Note compatibility through WP 4.9+
