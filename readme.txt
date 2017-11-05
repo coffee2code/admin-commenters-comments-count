@@ -5,7 +5,7 @@ Tags: commenters, comment count, comment author, comments, comment, admin, coffe
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.6
-Tested up to: 4.7
+Tested up to: 4.9
 Stable tag: 1.8
 
 Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
@@ -83,6 +83,7 @@ Yes.
 == Changelog ==
 
 = () =
+* Change: Note compatibility through WP 4.9+
 * Change: Update copyright date (2018)
 * Change: Minor whitespace tweaks in unit test bootstrap
 
