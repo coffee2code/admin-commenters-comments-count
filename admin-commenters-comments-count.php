@@ -29,6 +29,8 @@
  *   counts would be for the group and not the individual. The link to see the emails would search for all of the
  *   email addresses in the group. Via filter maybe?
  * - Add sortability to 'Comments' column in user table
+ * - Consider inserting commenter bomment bubble via 'comment_row_actions' hook like Akismet does, though that
+ *   requires introducing a JS dependency.
  *
  */
 
