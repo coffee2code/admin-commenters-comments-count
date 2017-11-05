@@ -130,6 +130,9 @@ class c2c_AdminCommentersCommentsCount {
 		add_action( 'admin_enqueue_scripts',      array( __CLASS__, 'enqueue_admin_css'       )        );
 		add_filter( 'manage_users_columns',       array( __CLASS__, 'add_user_column'         )        );
 		add_filter( 'manage_users_custom_column', array( __CLASS__, 'handle_column_data'      ), 10, 3 );
+
+		// Disable Akismet's version of this functionality.
+		add_filter( 'akismet_show_user_comments_approved', '__return_false' );
 	}
 
 	/**
