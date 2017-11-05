@@ -82,6 +82,9 @@ Yes.
 
 == Changelog ==
 
+= () =
+* Change: Minor whitespace tweaks in unit test bootstrap
+
 = 1.8 (2017-03-04) =
 * Change: Adopt WP core style of showing pending comments in a red circle superscript to comments bubble icon
 * Change: Show comments bubble in "Comments" column of user listings instead of plain integer
