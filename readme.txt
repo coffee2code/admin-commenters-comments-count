@@ -91,8 +91,6 @@ Yes.
 * Change: Omit unnecessary appending of '%' to author_url value in call to `get_comments_count()`
 * New: Add README.md
 * Change: Add GitHub link to readme
-
-= 1.8.1 (2017-11-04) =
 * Change: Note compatibility through WP 4.9+
 * Change: Update copyright date (2018)
 * Change: Minor whitespace tweaks in unit test bootstrap
@@ -242,7 +240,7 @@ Yes.
 
 == Upgrade Notice ==
 
-= 1.8.1 =
+= 1.9 =
 Minor update: verified compatibility through WP 4.9; updated copyright date (2018).
 
 = 1.8 =
