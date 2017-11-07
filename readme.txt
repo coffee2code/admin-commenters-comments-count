@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.6
 Tested up to: 4.9
-Stable tag: 1.8.1
+Stable tag: 1.9
 
 Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
 
@@ -82,7 +82,7 @@ Yes.
 
 == Changelog ==
 
-= 1.9 () =
+= 1.9 (2017-11-06) =
 * Bugfix: Explicitly set comment count font color to avoid style conflict with Akismet that resulted in gray text on dark gray background
 * Bugfix: Disable Akismet's version of the functionality since it is duplicative and interferes with author section layout
 * Change: Omit unnecessary `wp_register_style()` and instead provide all arguments to `wp_enqueue_style()`
@@ -241,7 +241,7 @@ Yes.
 == Upgrade Notice ==
 
 = 1.9 =
-Minor update: verified compatibility through WP 4.9; updated copyright date (2018).
+Recommended update: fixed compatibility conflicts with Akismet; fixed incorrect counts for pingbacks/trackbacks; verified compatibility through WP 4.9; updated copyright date (2018).
 
 = 1.8 =
 Recommended update: adopted WP comments bubble red circle superscript to display pending comments count, shown comments bubble in users listing, noted compatibility through WP 4.7+, dropped compatibility with WP older than 4.6, more
