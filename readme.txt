@@ -89,6 +89,7 @@ Yes.
 * Harden: Use 'esc_like()` on the pingback/trackback URL prior to use in queries
 * Bugfix: Use proper existing variable when searching for other pingbacks/trackbacks
 * Change: Omit unnecessary appending of '%' to author_url value in call to `get_comments_count()`
+* New: Add README.md
 * Change: Add GitHub link to readme
 
 = 1.8.1 (2017-11-04) =
