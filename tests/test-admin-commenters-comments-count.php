@@ -244,6 +244,29 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 		$this->assertEquals( array( 0, 0 ), c2c_AdminCommentersCommentsCount::get_comments_count( 'comment_author', 'alpha' ) );
 	}
 
+	public function test_get_comments_count_on_pingback() {
+		$this->create_comments( null, 2, 'A pingbacking site', array(
+			'comment_author'       => 'A pingbacking site',
+			'comment_author_email' => '',
+			'comment_author_url'   => 'http://example.com/post-that-pinged-back/',
+			'comment_type'         => 'pingback',
+		) );
+		$this->create_comments( null, 1, 'A pingbacking site', array(
+			'comment_author'       => 'A pingbacking site',
+			'comment_author_email' => '',
+			'comment_author_url'   => 'http://example.com/post-that-pinged-back/',
+			'comment_type'         => 'pingback',
+		) );
+		$this->create_comments( null, 2, 'Another pingbacking site', array(
+			'comment_author'       => 'Another pingbacking site',
+			'comment_author_email' => '',
+			'comment_author_url'   => 'http://test.example.com/post-that-pinged-back/',
+			'comment_type'         => 'pingback',
+		) );
+
+		$this->assertEquals( array( 3, 0 ), c2c_AdminCommentersCommentsCount::get_comments_count( 'comment_author_url', 'http://example.com/post-that-pinged-back/', 'pingback' ) );
+	}
+
 	/*
 	 * get_comments_url()
 	 */
