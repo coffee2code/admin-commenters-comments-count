@@ -88,6 +88,7 @@ Yes.
 * Change: Omit unnecessary `wp_register_style()` and instead provide all arguments to `wp_enqueue_style()`
 * Harden: Use 'esc_like()` on the pingback/trackback URL prior to use in queries
 * Bugfix: Use proper existing variable when searching for other pingbacks/trackbacks
+* Change: Omit unnecessary appending of '%' to author_url value in call to `get_comments_count()`
 
 = 1.8.1 (2017-11-04) =
 * Change: Note compatibility through WP 4.9+

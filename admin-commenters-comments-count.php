@@ -296,7 +296,7 @@ class c2c_AdminCommentersCommentsCount {
 			// Want to get the root domain and not use the exact pingback/trackback source link
 			$parsed_url = parse_url( $author_url );
 			$author_url = $parsed_url['scheme'] . '://' . $parsed_url['host'];
-			list( $comment_count, $pending_count ) = self::get_comments_count( 'comment_author_url', $author_url . '%', $type );
+			list( $comment_count, $pending_count ) = self::get_comments_count( 'comment_author_url', $author_url, $type );
 			$author_email = $author_url;
 			/* Translators: sorry, but I'm not supplying explicit translation strings for all possible other comment types.
 			   You can at least expect '%d trackback', '%d trackbacks', '%d pingback' and '%d pingbacks' */
