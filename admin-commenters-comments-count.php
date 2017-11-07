@@ -229,8 +229,8 @@ class c2c_AdminCommentersCommentsCount {
 			$pending_count = $wpdb->get_var( $wpdb->prepare( $query, $value, 0 ) );
 		} elseif ( 'pingback' == $type || 'trackback' == $type ) {
 			$query = "SELECT COUNT(*) FROM {$wpdb->comments} WHERE comment_author_url LIKE %s AND comment_type = %s AND comment_approved = %d";
-			$comment_count = $wpdb->get_var( $wpdb->prepare( $query, $value.'%', $type, 1 ) );
-			$pending_count = $wpdb->get_var( $wpdb->prepare( $query, $value.'%', $type, 0 ) );
+			$comment_count = $wpdb->get_var( $wpdb->prepare( $query, $wpdb->esc_like( $value ) . '%', $type, 1 ) );
+			$pending_count = $wpdb->get_var( $wpdb->prepare( $query, $wpdb->esc_like( $value ) . '%', $type, 0 ) );
 		} else {
 			$comment_count = $pending_count = 0;
 		}
