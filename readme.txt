@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.6
 Tested up to: 5.1
-Stable tag: 1.9
+Stable tag: 1.9.1
 
 Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
 
@@ -82,6 +82,16 @@ Yes.
 
 == Changelog ==
 
+= 1.9.1 (2019-04-05) =
+* Change: Initialize plugin on `plugins_loaded` action instead of on load
+* Change: Merge `do_init()` into `init()`
+* New: Add CHANGELOG.md file and move all but most recent changelog entries into it
+* Change: Unit tests: Specify hook priority when testing via `has_filter()`
+* Change: Note compatibility through WP 5.1+
+* Change: Update copyright date (2019)
+* Change: Update License URI to be HTTPS
+* Change: Split paragraph in README.md's "Support" section into two
+
 = 1.9 (2017-11-06) =
 * Bugfix: Explicitly set comment count font color to avoid style conflict with Akismet that resulted in gray text on dark gray background
 * Bugfix: Disable Akismet's version of the functionality since it is duplicative and interferes with author section layout
@@ -117,6 +127,9 @@ _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/ad
 
 
 == Upgrade Notice ==
+
+= 1.9.1 =
+Trivial update: tweaked plugin initialization, noted compatibility through WP 5.1+, created CHANGELOG.md to store historical changelog outside of readme.txt, and updated copyright date (2019).
 
 = 1.9 =
 Recommended update: fixed compatibility conflicts with Akismet; fixed incorrect counts for pingbacks/trackbacks; verified compatibility through WP 4.9; updated copyright date (2018).
