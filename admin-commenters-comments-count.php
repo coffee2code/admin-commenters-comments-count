@@ -113,13 +113,6 @@ class c2c_AdminCommentersCommentsCount {
 	 * Initializer
 	 */
 	public static function init() {
-		add_action( 'plugins_loaded', array( __CLASS__, 'do_init' ) );
-	}
-
-	/**
-	 * Performs initialization
-	 */
-	public static function do_init() {
 		// Set translatable and filterable strings
 		self::$field_title = __( 'Comments', 'admin-commenters-comments-count' );
 
