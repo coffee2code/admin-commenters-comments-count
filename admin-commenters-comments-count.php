@@ -419,6 +419,6 @@ class c2c_AdminCommentersCommentsCount {
 	}
 } // end c2c_AdminCommentersCommentsCount
 
-c2c_AdminCommentersCommentsCount::init();
+add_action( 'plugins_loaded', array( 'c2c_AdminCommentersCommentsCount', 'init' ) );
 
 endif; // end if !class_exists()
