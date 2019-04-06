@@ -7,7 +7,7 @@
  * Author URI:  http://coffee2code.com/
  * Text Domain: admin-commenters-comments-count
  * License:     GPLv2 or later
- * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Description: Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
  *
  * Compatible with WordPress 4.6 through 4.9+.

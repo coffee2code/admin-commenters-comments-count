@@ -2,6 +2,7 @@
 
 ## _(in progress)_
 * New: Add CHANGELOG.md file and move all but most recent changelog entries into it
+* Change: Update License URI to be HTTPS
 
 ## 1.9 _(2017-11-06)_
 * Bugfix: Explicitly set comment count font color to avoid style conflict with Akismet that resulted in gray text on dark gray background
