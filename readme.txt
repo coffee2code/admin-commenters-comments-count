@@ -5,7 +5,7 @@ Tags: commenters, comment count, comment author, comments, comment, admin, coffe
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.6
-Tested up to: 5.1
+Tested up to: 5.3
 Stable tag: 1.9.1
 
 Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
