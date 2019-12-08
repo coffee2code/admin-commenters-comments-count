@@ -2,6 +2,7 @@
 
 ## _(in-progress)_
 * Fix: Correct typo in GitHub URL
+* Change: Update unit test install script and bootstrap to use latest WP unit test repo
 * Change: Note compatibility through WP 5.3+
 * Change: Update copyright date (2020)
 
