@@ -9,6 +9,7 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 		c2c_AdminCommentersCommentsCount::reset_cache();
 	}
 
+
 	//
 	//
 	// HELPER FUNCTIONS
@@ -133,6 +134,7 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 	// TESTS
 	//
 	//
+
 
 	public function test_plugin_version() {
 		$this->assertEquals( '1.9.2', c2c_AdminCommentersCommentsCount::version() );
