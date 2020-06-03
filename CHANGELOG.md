@@ -1,5 +1,8 @@
 # Changelog
 
+## _(in-progress)_
+* Change: Note compatibility through WP 5.4+
+
 ## 1.9.2 _(2019-12-07)_
 * Fix: Correct typo in GitHub URL
 * Unit test:
