@@ -2,9 +2,9 @@
 /**
  * Plugin Name: Admin Commenters Comments Count
  * Version:     1.9.2
- * Plugin URI:  http://coffee2code.com/wp-plugins/admin-commenters-comments-count/
+ * Plugin URI:  https://coffee2code.com/wp-plugins/admin-commenters-comments-count/
  * Author:      Scott Reilly
- * Author URI:  http://coffee2code.com/
+ * Author URI:  https://coffee2code.com/
  * Text Domain: admin-commenters-comments-count
  * License:     GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html

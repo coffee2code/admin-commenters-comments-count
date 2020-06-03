@@ -34,7 +34,7 @@ Specifically, the linked comment count appears next to commenters in:
 
 Commenters are identified by the email address they provided when commenting. If your site does not require that commenters submit their email address when commenting, this plugin will use the commenter's name as the identifier, though since this is a publicly viewable piece of data it's possible that multiple people could be posting under the same "name", so this method has the potential to be not as accurate.
 
-Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/admin-commenters-comments-count/) | [Plugin Directory Page](https://wordpress.org/plugins/admin-commenters-comments-count/) | [GitHub](https://github.com/coffee2code/admin-commenters-comments-count/) | [Author Homepage](http://coffee2code.com)
+Links: [Plugin Homepage](https://coffee2code.com/wp-plugins/admin-commenters-comments-count/) | [Plugin Directory Page](https://wordpress.org/plugins/admin-commenters-comments-count/) | [GitHub](https://github.com/coffee2code/admin-commenters-comments-count/) | [Author Homepage](https://coffee2code.com)
 
 
 == Installation ==
