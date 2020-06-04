@@ -311,9 +311,9 @@ class c2c_AdminCommentersCommentsCount {
 	 *                                   address.
 	 * @param int    $pending_count      The number of pending comments for the
 	 *                                   email address.
-	 * @param string $msg.               String to use as title attribute for
+	 * @param string $msg                String to use as title attribute for
 	 *                                   comment bubble.
-	 * @param bool.  $no_comments_bubble Should the comment bubble be shown if the
+	 * @param bool   $no_comments_bubble Should the comment bubble be shown if the
 	 *                                   email address has no comments?
 	 *
 	 * @return string
