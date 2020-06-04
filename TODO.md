@@ -11,5 +11,6 @@ The following list comprises ideas, suggestions, and known issues, all of which 
   - The link to see the emails would search for all of the email addresses in the group. Via filter maybe?
 * Add sortability to 'Comments' column in user table
 * Consider inserting commenter bomment bubble via 'comment_row_actions' hook like Akismet does, though that requires introducing a JS dependency
+* Expand unit test coverage
 
 Feel free to make your own suggestions or champion for something already on the list (via the [plugin's support forum on WordPress.org](https://wordpress.org/support/plugin/admin-commenters-comments-count/) or on [GitHub](https://github.com/coffee2code/admin-commenters-comments-count/) as an issue or PR).
