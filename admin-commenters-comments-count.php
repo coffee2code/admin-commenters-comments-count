@@ -160,7 +160,7 @@ class c2c_AdminCommentersCommentsCount {
 	 * @param int    $user_id     ID of the currently-listed user.
 	 */
 	public static function handle_column_data( $output, $column_name, $user_id ) {
-		if ( self::$field != $column_name ) {
+		if ( self::$field !== $column_name ) {
 			return $output;
 		}
 
@@ -259,7 +259,7 @@ class c2c_AdminCommentersCommentsCount {
 		global $comment;
 		$type = get_comment_type();
 
-		if ( 'comment' == $type ) {
+		if ( 'comment' === $type ) {
 			$author_email = $comment->comment_author_email;
 			$author_name  = $comment->comment_author;
 			if ( ! $author_email ) {
@@ -271,7 +271,7 @@ class c2c_AdminCommentersCommentsCount {
 			}
 			list( $comment_count, $pending_count ) = self::get_comments_count( $field, $value, $type );
 			$msg = sprintf( _n( '%d comment', '%d comments', $comment_count, 'admin-commenters-comments-count' ), $comment_count );
-		} elseif ( 'pingback' == $type || 'trackback' == $type ) {
+		} elseif ( 'pingback' === $type || 'trackback' === $type ) {
 			$author_url = $comment->comment_author_url;
 			// Want to get the root domain and not use the exact pingback/trackback source link
 			$parsed_url = parse_url( $author_url );
@@ -288,7 +288,7 @@ class c2c_AdminCommentersCommentsCount {
 		// If appearing on the dashboard, then don't need to break out of
 		// pre-existing <strong> tags.
 		$screen = get_current_screen();
-		$is_dashboard = $screen && 'dashboard' == $screen->id;
+		$is_dashboard = $screen && 'dashboard' === $screen->id;
 
 		$html = $is_dashboard ? '' : '</strong>';
 
