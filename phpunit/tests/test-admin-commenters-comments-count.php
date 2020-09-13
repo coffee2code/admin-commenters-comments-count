@@ -7,6 +7,9 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 	public function tearDown() {
 		parent::tearDown();
 		c2c_AdminCommentersCommentsCount::reset_cache();
+
+		wp_deregister_style( 'c2c_AdminCommentersCommentsCount_admin' );
+		wp_dequeue_style( 'c2c_AdminCommentersCommentsCount_admin' );
 	}
 
 
@@ -331,4 +334,19 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 			c2c_AdminCommentersCommentsCount::get_comments_bubble( 'test@example.com', 0, 0, '0 comments', true )
 		);
 	}
+
+	/*
+	 * enqueue_admin_css()
+	 */
+
+	 public function test_enqueue_admin_css() {
+		$this->assertFalse( wp_style_is( 'c2c_AdminCommentersCommentsCount_admin', 'registered' ) );
+		$this->assertFalse( wp_style_is( 'c2c_AdminCommentersCommentsCount_admin', 'enqueued' ) );
+
+		c2c_AdminCommentersCommentsCount::enqueue_admin_css();
+
+		$this->assertTrue( wp_style_is( 'c2c_AdminCommentersCommentsCount_admin', 'registered' ) );
+		$this->assertTrue( wp_style_is( 'c2c_AdminCommentersCommentsCount_admin', 'enqueued' ) );
+	}
+
 }

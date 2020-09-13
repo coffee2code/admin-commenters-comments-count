@@ -8,6 +8,8 @@
     * Change: Move `tests/` to `phpunit/tests/`
     * Change: Rename `phpunit.xml` to `phpunit.xml.dist` per best practices
 * Change: Note compatibility through WP 5.5+
+* Unit tests:
+    * New: Add test for `enqueue_admin_css()`
 
 ## 1.9.3 _(2020-06-03)_
 * New: Add TODO.md and move existing TODO list from top of main plugin file into it (and add to it)
