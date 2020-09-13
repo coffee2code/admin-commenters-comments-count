@@ -349,4 +349,16 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 		$this->assertTrue( wp_style_is( 'c2c_AdminCommentersCommentsCount_admin', 'enqueued' ) );
 	}
 
+	/*
+	 * add_user_column()
+	 */
+
+	public function test_add_user_column() {
+		$expected = array( 'a' => 'A', 'b' => 'B', 'commenters_count' => 'Comments' );
+		$actual = c2c_AdminCommentersCommentsCount::add_user_column( array( 'a' => 'A', 'b' => 'B' ) );
+
+		$this->assertEquals( $expected, $actual );
+		$this->assertEquals( array_keys( $expected ), array_keys( $actual ) );
+	}
+
 }
