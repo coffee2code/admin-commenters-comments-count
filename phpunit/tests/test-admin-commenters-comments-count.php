@@ -361,4 +361,31 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 		$this->assertEquals( array_keys( $expected ), array_keys( $actual ) );
 	}
 
+	/*
+	 * handle_column_data()
+	 */
+
+	public function test_handle_column_data_with_some_other_column() {
+		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
+		$post_id = $this->factory->post->create( array( 'comment_status' => 'open' ) );
+
+		$expected = 'something';
+
+		$this->assertEquals( $expected, c2c_AdminCommentersCommentsCount::handle_column_data( $expected, 'address', $post_id ) );
+	}
+
+	public function test_handle_column_data() {
+		$post_id = $this->factory->post->create();
+		$user = self::factory()->user->create_and_get( array( 'role' => 'administrator' ) );
+		wp_set_current_user( $user->ID );
+
+		$this->create_comments( $post_id, 5, 'alpha' );
+		$this->create_comments( $post_id, 5, 'alpha', array( 'comment_approved' => '0' ) );
+		$this->create_comments( $post_id, 5, 'alpha', array( 'comment_author_email' => 'notalpha@example.com', 'user_id' => $user->ID ) );
+
+		$expected = $this->expected_output( 5, 0, '', $user->user_email, true );
+
+		$this->assertEquals( $expected, c2c_AdminCommentersCommentsCount::handle_column_data( $expected, 'commenters_count', $user->ID ) );
+	}
+
 }

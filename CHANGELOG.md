@@ -9,7 +9,7 @@
     * Change: Rename `phpunit.xml` to `phpunit.xml.dist` per best practices
 * Change: Note compatibility through WP 5.5+
 * Unit tests:
-    * New: Add tests for `add_user_column()`, `enqueue_admin_css()`
+    * New: Add tests for `add_user_column()`, `enqueue_admin_css()`, `handle_column_data()`
 
 ## 1.9.3 _(2020-06-03)_
 * New: Add TODO.md and move existing TODO list from top of main plugin file into it (and add to it)
