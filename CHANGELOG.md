@@ -9,6 +9,7 @@
     * Change: Move `tests/` to `phpunit/tests/`
     * Change: Rename `phpunit.xml` to `phpunit.xml.dist` per best practices
 * Change: Note compatibility through WP 5.5+
+* Change: Tweak inline function documentation
 * Unit tests:
     * New: Add tests for `add_user_column()`, `enqueue_admin_css()`, `handle_column_data()`
 

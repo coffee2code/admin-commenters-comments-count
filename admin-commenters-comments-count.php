@@ -151,13 +151,14 @@ class c2c_AdminCommentersCommentsCount {
 	}
 
 	/**
-	 * Outputs a linked count of the user's comments.
+	 * Outputs the markup for a linked count of the user's comments.
 	 *
 	 * @since 1.4
 	 *
 	 * @param string $output      Custom column output. Default empty.
 	 * @param string $column_name Column name.
 	 * @param int    $user_id     ID of the currently-listed user.
+	 * @return string
 	 */
 	public static function handle_column_data( $output, $column_name, $user_id ) {
 		if ( self::$field !== $column_name ) {
