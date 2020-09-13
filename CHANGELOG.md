@@ -10,6 +10,7 @@
     * Change: Rename `phpunit.xml` to `phpunit.xml.dist` per best practices
 * Change: Note compatibility through WP 5.5+
 * Change: Tweak inline function documentation
+* Change: Update list of TODO items to add some considerations to an existing item, fix a type, change sublist syntax
 * Unit tests:
     * New: Add tests for `add_user_column()`, `enqueue_admin_css()`, `handle_column_data()`
 
