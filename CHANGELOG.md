@@ -1,6 +1,6 @@
 # Changelog
 
-## _(in-progress)_
+## 1.9.4 _(2020-09-13)_
 * Change: Convert to use of strict equality checks
 * Change: Restructure unit test file structure
     * New: Create new subdirectory `phpunit/` to house all files related to unit testing
