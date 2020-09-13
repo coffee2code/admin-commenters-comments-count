@@ -311,7 +311,7 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 	}
 
 	/*
-	 * get_comments_url()
+	 * get_comments_bubble()
 	 */
 
 	public function test_get_comments_bubble() {
