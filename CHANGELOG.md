@@ -1,5 +1,8 @@
 # Changelog
 
+## _(in-progress)_
+* Change: Update copyright date (2021)
+
 ## 1.9.4 _(2020-09-13)_
 * Change: Convert to use of strict equality checks
 * Change: Restructure unit test file structure
