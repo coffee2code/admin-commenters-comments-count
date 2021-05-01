@@ -84,8 +84,9 @@ class c2c_AdminCommentersCommentsCount {
 	 * Prevent unserializing an instance.
 	 *
 	 * @since 1.8
+	 * @since 1.8.1 Changed method visibility from private to public.
 	 */
-	private function __wakeup() {}
+	public function __wakeup() {}
 
 	/**
 	 * Returns version of the plugin.
