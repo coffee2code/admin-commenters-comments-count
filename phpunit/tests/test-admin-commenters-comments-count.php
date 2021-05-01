@@ -167,6 +167,22 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 		}
 	}
 
+	/**
+	 * @expectedException Error
+	 */
+	public function test_unable_to_instantiation_object_from_class() {
+		new c2c_AdminCommentersCommentsCount;
+	}
+
+	/**
+	 * @expectedException Error
+	 */
+	public function test_unable_to_unserialize_an_instance_of_the_class() {
+		$data = 'O:32:"c2c_AdminCommentersCommentsCount":0:{}';
+
+		unserialize( $data );
+	}
+
 	public function test_get_comment_author_link_unaffected_on_frontend() {
 		$comments = $this->create_comments( null, 3 );
 		$GLOBALS['comment'] = get_comment( $comments[0] );

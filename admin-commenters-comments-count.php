@@ -84,9 +84,12 @@ class c2c_AdminCommentersCommentsCount {
 	 * Prevent unserializing an instance.
 	 *
 	 * @since 1.8
-	 * @since 1.8.1 Changed method visibility from private to public.
+	 * @since 1.8.3 Changed method visibility from private to public and throw exception if invoked.
 	 */
-	public function __wakeup() {}
+	public function __wakeup() {
+		/* translators: %s: Name of plugin class. */
+		throw new Error( sprintf( __( '%s cannot be unserialized.', 'admin-commenters-comments-count' ), __CLASS__ ) );
+	}
 
 	/**
 	 * Returns version of the plugin.
