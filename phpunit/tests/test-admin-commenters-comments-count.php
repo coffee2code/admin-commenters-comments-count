@@ -140,7 +140,7 @@ class Admin_Commenters_Comments_Count_Test extends WP_UnitTestCase {
 
 
 	public function test_plugin_version() {
-		$this->assertEquals( '1.9.5', c2c_AdminCommentersCommentsCount::version() );
+		$this->assertEquals( '1.9.6', c2c_AdminCommentersCommentsCount::version() );
 	}
 
 	public function test_class_is_available() {

@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.6
 Tested up to: 5.7
-Stable tag: 1.9.5
+Stable tag: 1.9.6
 
 Displays a count of each commenter's total number of comments (linked to those comments) next to their name on any admin page.
 
@@ -82,6 +82,10 @@ Yes.
 
 == Changelog ==
 
+= 1.9.6 (2021-05-01) =
+* Fix: Change `__wakeup()` method visibility from `private` to `public` to avoid warnings under PHP8
+* Fix: Throw an error when attempting to unserialize an instance of the class to actually prevent it from happening
+
 = 1.9.5 (2021-04-22) =
 * Change: Note compatibility through WP 5.7+
 * Change: Update copyright date (2021)
@@ -101,17 +105,13 @@ Yes.
 * Unit tests:
     * New: Add tests for `add_user_column()`, `enqueue_admin_css()`, `handle_column_data()`
 
-= 1.9.3 (2020-06-03) =
-* New: Add TODO.md and move existing TODO list from top of main plugin file into it (and add to it)
-* Change: Use HTTPS for link to WP SVN repository in bin script for configuring unit tests (and remove commented-out code)
-* Change: Note compatibility through WP 5.4+
-* Change: Update links to coffee2code.com to be HTTPS
-* New: Unit tests: Add test and data provider for hooking actions and filters
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/admin-commenters-comments-count/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 1.9.6 =
+Bugfix update: prevented PHP warnings when running under PHP 8.
 
 = 1.9.5 =
 Trivial update: noted compatibility through WP 5.7+, tweaked some documentation formatting, and updated copyright date (2021)
